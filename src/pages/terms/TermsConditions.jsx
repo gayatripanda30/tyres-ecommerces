@@ -1,10 +1,14 @@
 import { useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
+import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";
 import { HiChevronDown } from "react-icons/hi";
 
+// 👉 Your custom hero image
+import heroImg from "../../assets/image9.jpg";
+
 const TermsConditions = () => {
-  const [expandedSection, setExpandedSection] = useState(0);
+  const [expandedSection, setExpandedSection] = useState(-1);
 
   const toggleSection = (index) => {
     setExpandedSection(expandedSection === index ? -1 : index);
@@ -67,25 +71,24 @@ const TermsConditions = () => {
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Section */}
-      <div className="relative py-16 overflow-hidden text-white bg-gradient-to-r from-green-600 via-green-700 to-emerald-800">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 bg-white rounded-full -right-32 w-96 h-96 mix-blend-multiply filter blur-3xl"></div>
-          <div className="absolute bg-white rounded-full -bottom-32 -left-32 w-96 h-96 mix-blend-multiply filter blur-3xl"></div>
-        </div>
-        <div className="relative px-6 mx-auto max-w-7xl">
-          <h1 className="mb-4 text-5xl font-black tracking-tight md:text-6xl animate-slideInLeft">
-            Terms & Conditions
-          </h1>
-          <p className="text-lg text-green-100 md:text-xl animate-slideInRight">
+      {/* 🔹 Hero Section */}
+      <div
+        className="relative flex items-center justify-center text-center bg-center bg-cover h-96"
+        style={{ backgroundImage: `url(${heroImg})` }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div className="relative z-10 px-6 text-white">
+          <h1 className="text-5xl font-black md:text-6xl">Terms & Conditions</h1>
+          <p className="mt-3 text-lg md:text-xl">
             Please read our terms carefully before using our services
           </p>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 px-6 py-12 mx-auto max-w-4xl">
-        <div className="mb-10 p-8 bg-blue-50 border-l-4 border-blue-600 rounded-lg">
+      {/* 🔹 Main Content */}
+      <div className="flex-1 max-w-4xl px-6 py-12 mx-auto">
+        {/* Last Updated */}
+        <div className="p-8 mb-10 border-l-4 border-blue-600 rounded-lg bg-blue-50">
           <p className="text-gray-700">
             <span className="font-bold text-blue-600">Last Updated:</span> March 31, 2026
           </p>
@@ -99,7 +102,7 @@ const TermsConditions = () => {
           {sections.map((section, index) => (
             <div
               key={index}
-              className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white"
+              className="overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 shadow-md rounded-xl hover:shadow-lg"
             >
               <button
                 onClick={() => toggleSection(index)}
@@ -118,8 +121,8 @@ const TermsConditions = () => {
                 />
               </button>
               {expandedSection === index && (
-                <div className="p-6 border-t-2 border-gray-200 bg-white animate-fadeIn">
-                  <p className="text-gray-700 leading-relaxed">{section.content}</p>
+                <div className="p-6 bg-white border-t-2 border-gray-200 animate-fadeIn">
+                  <p className="leading-relaxed text-gray-700">{section.content}</p>
                 </div>
               )}
             </div>
@@ -127,17 +130,29 @@ const TermsConditions = () => {
         </div>
 
         {/* Contact Section */}
-        <div className="mt-12 p-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-2 border-green-200">
+        <div className="p-8 mt-12 border-2 border-green-200 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
           <h3 className="mb-4 text-2xl font-bold text-green-800">Questions About Our Terms?</h3>
           <p className="mb-4 text-gray-700">
             If you have any questions or concerns regarding our Terms and Conditions, please contact our customer support team:
           </p>
           <div className="space-y-2 text-gray-700">
             <p>
-              <span className="font-bold">Email:</span> support@tyrecommerce.com
+              <span className="font-bold">Email:</span>{" "}
+              <a
+                href="mailto:support@tyrecommerce.com"
+                className="text-green-600 underline transition hover:text-green-700"
+              >
+                support@tyrecommerce.com
+              </a>
             </p>
             <p>
-              <span className="font-bold">Phone:</span> +1 (800) 123-4567
+              <span className="font-bold">Phone:</span>{" "}
+              <a
+                href="tel:+18001234567"
+                className="text-green-600 underline transition hover:text-green-700"
+              >
+                +1 (800) 123-4567
+              </a>
             </p>
             <p>
               <span className="font-bold">Hours:</span> Monday - Friday, 9 AM - 6 PM EST
@@ -147,6 +162,7 @@ const TermsConditions = () => {
       </div>
 
       <Footer />
+      <WhatsAppChatbot />
     </div>
   );
 };

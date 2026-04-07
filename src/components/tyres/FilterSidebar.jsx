@@ -43,7 +43,7 @@ const FilterSidebar = ({
           onClick={() => toggleSection("type")}
           className="flex justify-between cursor-pointer"
         >
-          <h3 className="font-semibold text-blue-600">Tyre Type</h3>
+          <h3 className="font-semibold text-black">Tyre Type</h3>
           <span>{openSection === "type" ? "▲" : "▼"}</span>
         </div>
 
@@ -80,7 +80,7 @@ const FilterSidebar = ({
           onClick={() => toggleSection("brand")}
           className="flex justify-between cursor-pointer"
         >
-          <h3 className="font-semibold text-blue-600" hover:bg-gray-200>
+          <h3 className="font-semibold text-black" hover:bg-gray-200>
             Brand
           </h3>
           <span>{openSection === "brand" ? "▲" : "▼"}</span>
@@ -119,7 +119,7 @@ const FilterSidebar = ({
           onClick={() => toggleSection("load")}
           className="flex justify-between cursor-pointer"
         >
-          <h3 className="font-semibold text-blue-600">Load Index</h3>
+          <h3 className="font-semibold text-black">Load Index</h3>
           <span>{openSection === "load" ? "▲" : "▼"}</span>
         </div>
 
@@ -153,7 +153,7 @@ const FilterSidebar = ({
           onClick={() => toggleSection("speed")}
           className="flex justify-between cursor-pointer"
         >
-          <h3 className="font-semibold text-blue-600">Speed Rating</h3>
+          <h3 className="font-semibold text-black">Speed Rating</h3>
           <span>{openSection === "speed" ? "▲" : "▼"}</span>
         </div>
 
@@ -187,7 +187,7 @@ const FilterSidebar = ({
           onClick={() => toggleSection("price")}
           className="flex justify-between cursor-pointer"
         >
-          <h3 className="font-semibold text-blue-600">Price Range</h3>
+          <h3 className="font-semibold text-black">Price Range</h3>
           <span>{openSection === "price" ? "▲" : "▼"}</span>
         </div>
 
@@ -223,7 +223,7 @@ const FilterSidebar = ({
       {/* ===== RESET BUTTON ===== */}
       <button
         onClick={handleReset}
-        className="w-full py-2 mt-5 text-white transition bg-blue-600 rounded hover:bg-blue-700"
+        className="w-[60%] py-2 mt-5 text-white transition bg-blue-900 rounded-full hover:bg-blue-800"
       >
         Reset Filters
       </button>

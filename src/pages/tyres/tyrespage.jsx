@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCart } from "../../components/context/useCart";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
+import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";
 
 // ✅ Import Product Components
 import ProductHero from "../../components/tyres/ProductHero";
@@ -96,12 +97,13 @@ const TyresPage = () => {
 
               {/* Products Grid */}
               <ProductGrid
-                filteredTyres={filteredTyres}
-                onSelectTyre={(tyre) => {
-                  setSelectedTyre(tyre);
-                  setQuantity(1);
-                }}
-              />
+  filteredTyres={filteredTyres}
+  onAddToCart={(tyre) => addToCart(tyre)}   // ✅ ADD THIS
+  onSelectTyre={(tyre) => {
+    setSelectedTyre(tyre);
+    setQuantity(1);
+  }}
+/>
             </div>
           </div>
         </div>
@@ -126,6 +128,7 @@ const TyresPage = () => {
 
       {/* Footer */}
       <Footer />
+      <WhatsAppChatbot />
     </div>
   );
 };

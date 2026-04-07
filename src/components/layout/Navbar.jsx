@@ -1,250 +1,237 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../context/useCart";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { FiSearch, FiChevronDown } from "react-icons/fi";
 
 const Navbar = () => {
   const { cart } = useCart();
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [openProducts, setOpenProducts] = useState(false);
   const [openServices, setOpenServices] = useState(false);
-  const [openMobileTyres, setOpenMobileTyres] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [openMobileSearch, setOpenMobileSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showResults, setShowResults] = useState(false);
 
-  const isProductPage = location.pathname.startsWith("/products") || location.pathname === "/tyres";
-  const isServicePage = location.pathname.startsWith("/services");
-  const isHomePage = location.pathname === "/";
-  const isSpecialPage = location.pathname.startsWith("/special-offers");
-  const isContactPage = location.pathname.startsWith("/contact");
+  const dropdownRef = useRef();
 
-  const toggleButtonClass = (active) =>
-    `flex items-center gap-1 rounded-md px-3 py-2 text-sm transition duration-150 ${
-      active
-        ? "bg-orange-50 text-orange-600 font-semibold"
-        : "text-gray-700 hover:bg-gray-100 hover:text-orange-600"
-    }`;
+  // ✅ CLOSE ON OUTSIDE CLICK
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpenProducts(false);
+        setOpenServices(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const products = [
+    { id: 1, name: "Michelin Car Tyre", path: "/tyres" },
+    { id: 2, name: "Apollo Bike Tyre", path: "/tyres" },
+    { id: 3, name: "Amaron Car Battery", path: "/products/batteries" },
+  ];
+
+  const filteredProducts = products.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const isActive = (path) => location.pathname === path;
 
   const navLinkClass = (active) =>
-    `font-medium rounded-md px-3 py-2 text-sm transition duration-150 ${
-      active ? "bg-orange-50 text-orange-600 font-semibold" : "text-gray-700 hover:bg-gray-100 hover:text-orange-600"
-    }`;
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (!searchQuery.trim()) return;
-    // Add custom search handling here later
-    setSearchQuery("");
-    setOpenMobileSearch(false);
-  };
+    `relative px-3 py-2 text-sm font-semibold transition ${
+      active
+        ? "text-yellow-600 after:w-full"
+        : "text-gray-800 hover:text-yellow-600"
+    } after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-yellow-500 after:transition-all after:duration-300 hover:after:w-full`;
 
   return (
-    <div className="sticky top-0 z-50 bg-white shadow overflow-visible">
-      
-      {/* Top Bar */}
-      <div className="flex flex-wrap items-center justify-between px-6 py-4 md:px-10 min-w-0 overflow-visible">
-        <h1 className="text-xl font-bold">TYROOLA</h1>
+    <>
+      {/* ✅ FIXED NAVBAR */}
+      <div className="fixed top-0 left-0 w-full z-[999] bg-white shadow overflow-visible">
 
-        {/* Desktop Menu */}
-        <div className="items-center hidden gap-6 md:flex flex-wrap min-w-0">
-          <Link to="/" className={navLinkClass(isHomePage)}>
-            Home
-          </Link>
+        <div className="flex items-center justify-between px-6 py-4 overflow-visible md:px-10">
 
-          {/* Dropdown */}
-          <div className="relative min-w-max overflow-visible">
-            <button
-              onClick={() => {
-                setOpenProducts(!openProducts);
-                setOpenServices(false);
-              }}
-              className={toggleButtonClass(openProducts || isProductPage)}
-            >
-              Products
-              <FiChevronDown className="h-4 w-4" />
-            </button>
+          {/* Logo */}
+          <h1
+            className="text-xl font-bold cursor-pointer"
+            onClick={() => navigate("/")}
+          >
+            TYROOLA
+          </h1>
 
-            {/* Dropdown Menu */}
-            {openProducts && (
-              <div className="absolute left-0 top-full z-[60] mt-2 min-w-[16rem] overflow-hidden bg-white rounded-xl border border-gray-200 shadow-xl">
-                <Link onClick={() => setOpenProducts(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100 font-semibold border-b" to="/products">
-                  All Products
-                </Link>
-                <Link onClick={() => setOpenProducts(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/tyres">
-                  🛞 Tyres
-                </Link>
-                <Link onClick={() => setOpenProducts(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/products/car-batteries">
-                  🔋 Car Batteries
-                </Link>
-                <Link onClick={() => setOpenProducts(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/products/bike-batteries">
-                  ⚡ Bike Batteries
-                </Link>
-                <Link onClick={() => setOpenProducts(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/products/accessories">
-                  🎯 Accessories
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Dropdown */}
-          <div className="relative min-w-max overflow-visible">
-            <Link
-              to="/services"
-              onClick={() => {
-                setOpenServices(false);
-                setOpenProducts(false);
-              }}
-              className={toggleButtonClass(openServices || isServicePage)}
-            >
-              Services
+          {/* Desktop Menu */}
+          <div
+            className="items-center hidden gap-6 overflow-visible md:flex"
+            ref={dropdownRef}
+          >
+            <Link to="/" className={navLinkClass(isActive("/"))}>
+              Home
             </Link>
 
-            {/* Simple dropdown toggle without full dropdown menu */}
-            <div className="relative">
+            {/* PRODUCTS */}
+            <div className="relative flex items-center">
+              <button
+                onClick={() => navigate("/products")}
+                className={navLinkClass(location.pathname.startsWith("/products"))}
+              >
+                Products
+              </button>
+
+              <button
+                onClick={() => {
+                  setOpenProducts(!openProducts);
+                  setOpenServices(false);
+                }}
+                className="p-2 text-gray-600 hover:text-yellow-600"
+              >
+                <FiChevronDown />
+              </button>
+
+              {openProducts && (
+                <div className="absolute left-0 top-full mt-2 z-[9999] min-w-[220px] bg-white border shadow-xl rounded-xl">
+                  <Link onClick={() => setOpenProducts(false)} to="/products" className="block px-4 py-3 hover:text-yellow-600">
+                    All Products
+                  </Link>
+                  <Link onClick={() => setOpenProducts(false)} to="/tyres" className="block px-4 py-3 hover:text-yellow-600">
+                    Tyres
+                  </Link>
+                  <Link onClick={() => setOpenProducts(false)} to="/products/batteries" className="block px-4 py-3 hover:text-yellow-600">
+                    Batteries
+                  </Link>
+                  <Link onClick={() => setOpenProducts(false)} to="/products/lubricants" className="block px-4 py-3 hover:text-yellow-600">
+                    Lubricants
+                  </Link>
+                  <Link onClick={() => setOpenProducts(false)} to="/products/accessories" className="block px-4 py-3 hover:text-yellow-600">
+                    Accessories
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* SERVICES */}
+            <div className="relative flex items-center">
+              <button
+                onClick={() => navigate("/services")}
+                className={navLinkClass(location.pathname.startsWith("/services"))}
+              >
+                Services
+              </button>
+
               <button
                 onClick={() => {
                   setOpenServices(!openServices);
                   setOpenProducts(false);
                 }}
-                className="absolute right-0 top-0 p-2 text-gray-700 hover:text-orange-600"
+                className="p-2 text-gray-600 hover:text-yellow-600"
               >
-                <FiChevronDown className="h-4 w-4" />
+                <FiChevronDown />
               </button>
 
-              {/* Dropdown Menu */}
               {openServices && (
-                <div className="absolute right-0 top-full z-[60] mt-2 min-w-[16rem] overflow-hidden bg-white rounded-xl border border-gray-200 shadow-xl">
-                  <Link onClick={() => setOpenServices(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/services">
+                <div className="absolute right-0 top-full mt-2 z-[9999] min-w-[220px] bg-white border shadow-xl rounded-xl">
+                  <Link onClick={() => setOpenServices(false)} to="/services" className="block px-4 py-3 hover:text-yellow-600">
                     All Services
                   </Link>
-                  <div className="border-t border-gray-200"></div>
-                  <Link onClick={() => setOpenServices(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/services/wheel-alignment">
+                  <Link onClick={() => setOpenServices(false)} to="/services/wheel-alignment" className="block px-4 py-3 hover:text-yellow-600">
                     Wheel Alignment
                   </Link>
-                  <Link onClick={() => setOpenServices(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/services/wheel-balancing">
+                  <Link onClick={() => setOpenServices(false)} to="/services/wheel-balancing" className="block px-4 py-3 hover:text-yellow-600">
                     Wheel Balancing
                   </Link>
-                  <Link onClick={() => setOpenServices(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/services/tyre-changes">
+                  <Link onClick={() => setOpenServices(false)} to="/services/tyre-changes" className="block px-4 py-3 hover:text-yellow-600">
                     Tyre Changes
                   </Link>
-                  <Link onClick={() => setOpenServices(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/services/pollution-testing">
+                  <Link onClick={() => setOpenServices(false)} to="/services/pollution-testing" className="block px-4 py-3 hover:text-yellow-600">
                     Pollution Testing
                   </Link>
-                  <Link onClick={() => setOpenServices(false)} className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-100" to="/services/general-services">
+                  <Link onClick={() => setOpenServices(false)} to="/services/general-services" className="block px-4 py-3 hover:text-yellow-600">
                     General Services
                   </Link>
                 </div>
               )}
             </div>
+
+            <Link to="/special-offers" className={navLinkClass(isActive("/special-offers"))}>
+              Special Offers
+            </Link>
+
+            <Link to="/contact" className={navLinkClass(isActive("/contact"))}>
+              Contact
+            </Link>
           </div>
 
-          <Link to="/special-offers" className={navLinkClass(isSpecialPage)}>
-            Special Offers
-          </Link>
+          {/* RIGHT */}
+          <div className="flex items-center gap-4">
 
-          <Link to="/contact" className={navLinkClass(isContactPage)}>
-            Contact
-          </Link>
-        </div>
+            {/* SEARCH */}
+            <div className="relative hidden md:block">
+              <div className="flex items-center gap-2 px-4 py-2 border rounded-full bg-gray-50 focus-within:border-yellow-500">
+                <FiSearch />
+                <input
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setShowResults(true);
+                  }}
+                  placeholder="Search products..."
+                  className="w-48 text-sm bg-transparent outline-none"
+                />
+              </div>
 
-        {/* Right Section */}
-        <div className="flex flex-wrap items-center gap-4 min-w-0">
-          <form onSubmit={handleSearchSubmit} className="items-center hidden gap-2 px-3 py-1 border border-gray-200 rounded-full bg-gray-50 md:flex min-w-0">
-            <FiSearch className="text-gray-500" />
-            <input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search tyres, batteries..."
-              className="w-40 text-sm bg-transparent outline-none placeholder:text-gray-400"
-            />
-            <button type="submit" className="px-3 py-1 text-sm font-semibold text-white bg-orange-600 rounded-full hover:bg-orange-700">
-              Search
+              {showResults && searchQuery && (
+                <div className="absolute left-0 top-full mt-2 z-[9999] w-full bg-white border shadow-lg rounded-xl">
+                  {filteredProducts.map((item) => (
+                    <div
+                      key={item.id}
+                      onClick={() => {
+                        navigate(item.path);
+                        setSearchQuery("");
+                        setShowResults(false);
+                      }}
+                      className="px-4 py-3 cursor-pointer hover:text-yellow-600"
+                    >
+                      {item.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* CART */}
+            <Link to="/cart" className="font-semibold hover:text-yellow-600">
+              Cart ({cart.length})
+            </Link>
+
+            {/* MOBILE */}
+            <button
+              onClick={() => setMobileMenu(!mobileMenu)}
+              className="text-2xl md:hidden"
+            >
+              {mobileMenu ? <HiX /> : <HiMenu />}
             </button>
-          </form>
-
-          <button
-            className="block text-xl text-gray-600 md:hidden"
-            onClick={() => {
-              setMobileMenu(true);
-              setOpenMobileSearch((prev) => !prev);
-            }}
-            aria-label="Open mobile search"
-          >
-            <FiSearch />
-          </button>
-
-          <Link to="/cart" className="font-medium">
-            Cart ({cart.length})
-          </Link>
-
-          {/* Mobile Toggle */}
-          <button
-            className="text-2xl md:hidden"
-            onClick={() => setMobileMenu((prev) => {
-              if (prev) setOpenMobileSearch(false);
-              return !prev;
-            })}
-          >
-            {mobileMenu ? <HiX /> : <HiMenu />}
-          </button>
+          </div>
         </div>
+
+        {/* MOBILE MENU */}
+        {mobileMenu && (
+          <div className="px-6 pb-4 bg-white md:hidden">
+            <Link to="/" className="block py-2 font-semibold">Home</Link>
+            <Link to="/products" className="block py-2 font-semibold">Products</Link>
+            <Link to="/services" className="block py-2 font-semibold">Services</Link>
+            <Link to="/special-offers" className="block py-2 font-semibold">Special Offers</Link>
+            <Link to="/contact" className="block py-2 font-semibold">Contact</Link>
+          </div>
+        )}
       </div>
 
-      {/* Mobile Menu */}
-      {mobileMenu && (
-        <div className="px-6 pb-4 bg-white md:hidden overflow-visible">
-          {openMobileSearch ? (
-            <form onSubmit={handleSearchSubmit} className="mb-4 flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-2">
-              <FiSearch className="text-gray-500" />
-              <input
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search tyres, batteries..."
-                className="w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
-              />
-              <button type="submit" className="rounded-full bg-orange-600 px-3 py-1 text-sm font-semibold text-white hover:bg-orange-700">
-                Go
-              </button>
-            </form>
-          ) : (
-            <button
-              onClick={() => setOpenMobileSearch(true)}
-              className="mb-4 flex w-full items-center justify-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-left text-sm font-medium text-gray-700 hover:border-orange-400 hover:text-orange-600"
-            >
-              <FiSearch /> Search the store
-            </button>
-          )}
-
-          <Link to="/" className="block py-2">Home</Link>
-
-          {/* Mobile Dropdown */}
-          <div>
-            <button
-              onClick={() => setOpenMobileTyres(!openMobileTyres)}
-              className={`flex items-center justify-between w-full py-2 transition ${openMobileTyres || isProductPage ? "text-orange-600 font-semibold" : "text-gray-700 hover:text-orange-600"}`}
-            >
-              Tyres ▾
-            </button>
-
-            {openMobileTyres && (
-              <div className="pl-4">
-                <Link className="block py-2" to="/products/car-tyres">Car Tyres</Link>
-                <Link className="block py-2" to="/products/bike-tyres">Bike Tyres</Link>
-                <Link className="block py-2" to="/products/alloy-wheels">Alloy Wheels</Link>
-                <Link className="block py-2" to="/products/car-batteries">Car Batteries</Link>
-                <Link className="block py-2" to="/products/bike-batteries">Bike Batteries</Link>
-                <Link className="block py-2" to="/products/accessories">Accessories</Link>
-                <Link className="block py-2" to="/products/wheel-covers">Wheel Covers</Link>
-              </div>
-            )}
-          </div>
-
-          <Link to="/contact" className="block py-2">Contact</Link>
-        </div>
-      )}
-    </div>
+      {/* ✅ ADD SPACING BELOW NAVBAR */}
+      <div className="h-[80px]"></div>
+    </>
   );
 };
 

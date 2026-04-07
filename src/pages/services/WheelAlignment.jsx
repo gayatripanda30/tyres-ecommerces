@@ -4,7 +4,12 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
+import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";
 import { HiCheckCircle, HiArrowLeft } from "react-icons/hi";
+
+// 👉 ADD YOUR IMAGES
+import heroImg from "../../assets/hero3.png";
+import serviceImg from "../../assets/services1.png";
 
 const WheelAlignment = () => {
   useEffect(() => {
@@ -19,89 +24,126 @@ const WheelAlignment = () => {
     <>
       <Navbar />
 
-      {/* Header */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-        <div className="max-w-6xl mx-auto px-4 flex items-center gap-4" data-aos="fade-down">
-          <Link to="/services" className="hover:bg-blue-700 p-2 rounded-full transition">
+      {/* 🔥 HERO WITH IMAGE */}
+      <section
+        className="relative py-16 text-white"
+        style={{
+          backgroundImage: `url(${heroImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/60"></div>
+
+        <div className="relative z-10 flex items-center max-w-6xl gap-4 px-4 mx-auto" data-aos="fade-down">
+          
+          <Link to="/services" className="p-2 transition rounded-full bg-white/20 hover:bg-white/30">
             <HiArrowLeft size={24} />
           </Link>
+
           <div>
             <h1 className="text-4xl font-bold">Wheel Alignment</h1>
-            <p className="text-blue-100 mt-2">Professional alignment service for optimal vehicle performance</p>
+            <p className="mt-2 text-blue-100">
+              Professional alignment service for optimal vehicle performance
+            </p>
           </div>
+
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* 🔥 MAIN CONTENT */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl px-4 mx-auto">
           <div className="grid gap-12 md:grid-cols-2">
-            {/* Left Side - Image */}
+
+            {/* ✅ LEFT SIDE IMAGE */}
             <div data-aos="fade-right">
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <div className="text-8xl text-center mb-4">⚙️</div>
-                <div className="bg-gradient-to-br from-blue-50 to-gray-100 rounded-xl p-8 h-80 flex items-center justify-center border-2 border-dashed border-blue-300">
-                  <div className="text-center">
-                    <p className="text-gray-600 font-semibold">Professional Wheel Alignment</p>
-                    <p className="text-sm text-gray-500 mt-2">Uses advanced alignment equipment</p>
-                  </div>
-                </div>
+              <div className="overflow-hidden bg-white shadow-lg rounded-2xl group">
+
+                <img
+                  src={serviceImg}
+                  alt="Wheel Alignment"
+                  className="object-cover w-full h-[400px] transition duration-500 group-hover:scale-105"
+                />
+
               </div>
             </div>
 
-            {/* Right Side - Info */}
+            {/* ✅ RIGHT SIDE CONTENT */}
             <div data-aos="fade-left">
-              <h2 className="text-3xl font-bold mb-6">What is Wheel Alignment?</h2>
-              <p className="text-gray-700 mb-6 leading-relaxed">
-                Wheel alignment is the process of adjusting your vehicle's suspension to ensure all four wheels are perpendicular to the ground and parallel to each other. This critical service improves your vehicle's handling, increases tyre lifespan, and enhances fuel efficiency.
+              <h2 className="mb-6 text-3xl font-bold">
+                What is Wheel Alignment?
+              </h2>
+
+              <p className="mb-6 leading-relaxed text-gray-700">
+                Wheel alignment is the process of adjusting your vehicle's suspension to ensure all four wheels are perfectly aligned. This improves handling, extends tyre life, and enhances fuel efficiency.
               </p>
 
-              <h3 className="text-2xl font-bold mb-4">Key Benefits</h3>
-              <ul className="space-y-3 mb-8">
+              <h3 className="mb-4 text-2xl font-bold">
+                Key Benefits
+              </h3>
+
+              <ul className="mb-8 space-y-3">
                 {[
                   "Improved vehicle handling and safety",
                   "Extended tyre lifespan",
                   "Better fuel economy",
-                  "Reduced steering wheel vibration",
-                  "Straight driving experience",
+                  "Reduced steering vibration",
+                  "Smooth driving experience",
                   "Lower maintenance costs",
                 ].map((benefit, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <HiCheckCircle className="text-green-500 mt-1 flex-shrink-0" size={20} />
+                    <HiCheckCircle className="mt-1 text-green-500" size={20} />
                     <span className="text-gray-700">{benefit}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded">
-                <h4 className="font-bold text-blue-900 mb-2">⏱️ Service Duration</h4>
-                <p className="text-blue-800">Approximately 30-45 minutes</p>
+              {/* INFO BOX */}
+              <div className="p-6 border-l-4 border-blue-900 rounded-lg bg-blue-50">
+                <h4 className="mb-2 font-bold text-blue-900">
+                  ⏱️ Service Duration
+                </h4>
+                <p className="text-blue-800">
+                  30 - 45 minutes
+                </p>
 
-                <h4 className="font-bold text-blue-900 mb-2 mt-4">💰 Price</h4>
-                <p className="text-blue-800 text-2xl font-bold">₹399</p>
+                <h4 className="mt-4 mb-2 font-bold text-blue-900">
+                   Price: 
+                </h4>
+                <p className="text-2xl font-bold text-blue-800">
+                  ₹399
+                </p>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* When to Get Alignment */}
+      {/* 🔥 WHEN TO ALIGN */}
       <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">When Should You Get Wheel Alignment?</h2>
+        <div className="max-w-6xl px-4 mx-auto">
+          <h2 className="mb-10 text-3xl font-bold text-center">
+            When Should You Get Wheel Alignment?
+          </h2>
 
           <div className="grid gap-6 md:grid-cols-2">
             {[
-              { icon: "🛣️", title: "After hitting potholes or bumps", desc: "Road hazards can misalign wheels" },
-              { icon: "⚠️", title: "Steering wheel pulls to one side", desc: "Sign of misalignment" },
+              { icon: "🛣️", title: "After potholes", desc: "Road damage affects alignment" },
+              { icon: "⚠️", title: "Car pulls one side", desc: "Sign of misalignment" },
               { icon: "📊", title: "Uneven tyre wear", desc: "Indicates alignment issues" },
-              { icon: "🔄", title: "After suspension repairs", desc: "Alignment needed after repairs" },
-              { icon: "📅", title: "Every 6 months", desc: "Regular maintenance recommended" },
-              { icon: "🚗", title: "Vehicle feels unstable", desc: "Especially during turning" },
+              { icon: "🔄", title: "After repairs", desc: "Needed after suspension work" },
+              { icon: "📅", title: "Every 6 months", desc: "Regular check recommended" },
+              { icon: "🚗", title: "Unstable driving", desc: "During high speed or turns" },
             ].map((item, idx) => (
-              <div key={idx} className="bg-gray-50 p-6 rounded-xl border-l-4 border-blue-600">
-                <div className="text-3xl mb-3">{item.icon}</div>
-                <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+              <div
+                key={idx}
+                className="p-6 transition bg-gray-100 border-l-4 border-blue-900 rounded-xl hover:shadow-md w-[70%] mx-auto"
+              >
+                <div className="mb-3 text-3xl">{item.icon}</div>
+                <h3 className="mb-1 font-bold">{item.title}</h3>
                 <p className="text-gray-600">{item.desc}</p>
               </div>
             ))}
@@ -109,22 +151,28 @@ const WheelAlignment = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center" data-aos="zoom-in">
-          <h2 className="text-3xl font-bold mb-4">Book Your Wheel Alignment Today</h2>
-          <p className="text-lg mb-6">Ensure perfect alignment for better performance and safety</p>
-          <Link
-            to="/contact"
-            className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition"
-          >
-            Schedule Service
-          </Link>
-        </div>
+      {/* 🔥 CTA */}
+      <section className="py-12 text-center text-white bg-gradient-to-r from-gray-800 to-gray-900">
+        <h2 className="mb-4 text-3xl font-bold">
+          Book Your Wheel Alignment Today
+        </h2>
+
+        <p className="mb-6 text-lg">
+          Ensure perfect alignment for better performance and safety
+        </p>
+
+        <Link
+          to="/contact"
+          className="px-8 py-3 font-bold text-black bg-white rounded-full hover:bg-gray-100"
+        >
+          Schedule Service
+        </Link>
       </section>
 
       <Footer />
+      <WhatsAppChatbot />
     </>
+    
   );
 };
 

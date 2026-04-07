@@ -2,25 +2,25 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import tyre from "../../assets/tyre.jpg";
-import alloy from "../../assets/alloy.jpg";
+import alloy from "../../assets/lubricant1.png";
 import battery from "../../assets/battery.jpg";
 import accessories from "../../assets/accessories.jpg";
 
 const collections = [
   {
-    title: "Car Tyre",
+    title: " Tyres",
     img: tyre,
-    link: "/products/tyres",
+    link: "/tyres",
   },
   {
-    title: "Premium Alloys",
-    img: alloy,
-    link: "/products/alloys",
-  },
+  title: "Lubricants",
+  img: alloy,
+  link: "/products/lubricants", // ✅ correct
+},
   {
-    title: "Car Batteries",
+    title: " Batteries",
     img: battery,
-    link: "/products/batteries",
+   link: "/products/batteries",
   },
   {
     title: "Accessories",

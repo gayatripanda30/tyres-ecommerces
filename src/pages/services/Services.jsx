@@ -1,12 +1,21 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
+import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";
 import { HiCheckCircle, HiClock, HiUsers, HiSparkles } from "react-icons/hi";
+import image2 from "../../assets/image2.png";
+import alignImg from "../../assets/services1.png";
+import balanceImg from "../../assets/services2.png";
+import tyreImg from "../../assets/services3.png";
+import pollutionImg from "../../assets/services4.png";
+import generalImg from "../../assets/services5.png";
 
 const Services = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -19,46 +28,56 @@ const Services = () => {
     {
       id: 1,
       name: "Wheel Alignment",
-      description: "Professional wheel alignment service to ensure proper tyre positioning and enhance fuel efficiency.",
-      icon: "⚙️",
+      description: "Ensure perfect tyre alignment for better control and fuel efficiency.",
+    
+      image: alignImg,
+      rating: 4,
       path: "/services/wheel-alignment",
-      features: ["Precision alignment", "Extended tyre life", "Improved handling", "Better fuel economy"],
+      features: ["Precision alignment", "Extended tyre life", "Better handling"],
       price: "₹399",
     },
     {
       id: 2,
       name: "Wheel Balancing",
-      description: "Expert wheel balancing to reduce vibration and ensure smooth driving experience on all roads.",
-      icon: "⚖️",
+      description: "Smooth driving with vibration-free wheels.",
+    
+      image: balanceImg,
+      rating: 4,
       path: "/services/wheel-balancing",
-      features: ["Vibration reduction", "Even tyre wear", "Smooth ride", "Extended tyre life"],
+      features: ["Even tyre wear", "Smooth ride", "Less vibration"],
       price: "₹299",
     },
     {
       id: 3,
       name: "Tyre Changes",
-      description: "Quick and efficient tyre replacement service by certified technicians with quality assurance.",
-      icon: "🛞",
+      description: "Fast tyre replacement by experts.",
+      
+      image: tyreImg,
+      rating: 5,
       path: "/services/tyre-changes",
-      features: ["Quick service", "Expert installation", "Multiple brands", "Disposal included"],
+      features: ["Quick install", "Expert service", "All brands"],
       price: "₹599",
     },
     {
       id: 4,
       name: "Pollution Testing",
-      description: "Certified pollution control testing (PUC) to ensure your vehicle meets environmental standards.",
-      icon: "🌍",
+      description: "Certified PUC testing for your vehicle.",
+    
+      image: pollutionImg,
+      rating: 4,
       path: "/services/pollution-testing",
-      features: ["Certified testing", "Quick results", "Valid certification", "Eco-friendly"],
+      features: ["Quick results", "Valid certificate"],
       price: "₹150",
     },
     {
       id: 5,
       name: "General Services",
-      description: "Comprehensive vehicle maintenance including inspection, cleaning, and preventive care.",
-      icon: "🔧",
+      description: "Complete vehicle maintenance solutions.",
+      
+      image: generalImg,
+      rating: 5,
       path: "/services/general-services",
-      features: ["Vehicle inspection", "Cleaning service", "Preventive care", "Expert advice"],
+      features: ["Inspection", "Cleaning", "Maintenance"],
       price: "₹499",
     },
   ];
@@ -67,18 +86,32 @@ const Services = () => {
     <>
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-6xl mx-auto px-4 text-center" data-aos="fade-down">
-          <h1 className="text-5xl font-bold mb-4">Professional Vehicle Services</h1>
-          <p className="text-xl text-blue-100">Complete care for your tyres and vehicle at your doorstep</p>
+      {/* HERO */}
+      <section
+        className="relative py-16 text-white"
+        style={{
+          backgroundImage: `url(${image2})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="relative z-10 max-w-6xl px-4 mx-auto text-center">
+          <h1 className="mb-4 text-5xl font-bold">
+            Expert Tyre Service
+          </h1>
+          <p className="text-lg text-gray-200">
+            From installation to maintenance, we’ve got you covered
+          </p>
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* 🔥 SERVICES GRID */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
+        <div className="max-w-6xl px-4 mx-auto">
+          <h2 className="mb-12 text-4xl font-bold text-center">
+            Our Services
+          </h2>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => (
@@ -87,81 +120,139 @@ const Services = () => {
                 to={service.path}
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
-                className="group bg-white rounded-2xl border-2 border-gray-200 shadow-md hover:shadow-2xl hover:border-blue-500 transition-all duration-300 overflow-hidden cursor-pointer"
+                className="relative overflow-hidden transition bg-white shadow-lg group rounded-2xl hover:shadow-2xl hover:-translate-y-2"
               >
-                <div className="p-8">
-                  {/* Icon */}
-                  <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">{service.icon}</div>
+                {/* IMAGE */}
+                <div className="relative overflow-hidden h-52">
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    className="object-cover w-full h-full transition duration-500 group-hover:scale-110"
+                  />
 
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition">
-                    {service.name}
-                  </h3>
+                  {/* GRADIENT */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
 
-                  {/* Description */}
-                  <p className="text-gray-600 mb-4 text-sm">{service.description}</p>
+                  {/* TEXT */}
+                  <div className="absolute text-white bottom-4 left-4">
+                    <h3 className="text-xl font-bold">
+                      {service.name}
+                    </h3>
 
-                  {/* Features */}
-                  <ul className="space-y-2 mb-6">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-sm text-gray-700">
-                        <HiCheckCircle className="text-green-500 flex-shrink-0" size={16} />
-                        {feature}
+                    <div className="text-sm text-yellow-400">
+                      {"★".repeat(service.rating)}
+                      {"☆".repeat(5 - service.rating)}
+                    </div>
+                  </div>
+
+                  {/* ICON */}
+                  <div className="absolute text-3xl text-white top-3 right-3">
+                    {service.icon}
+                  </div>
+                </div>
+
+                {/* CONTENT */}
+                <div className="p-5">
+                  <p className="mb-4 text-sm text-gray-600">
+                    {service.description}
+                  </p>
+
+                  <ul className="mb-4 space-y-1">
+                    {service.features.map((f, i) => (
+                      <li key={i} className="flex gap-2 text-sm">
+                        <HiCheckCircle className="text-green-500" />
+                        {f}
                       </li>
                     ))}
                   </ul>
 
-                  {/* Price and Button */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <span className="text-2xl font-bold text-green-600">{service.price}</span>
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition group-hover:translate-x-1">
-                      Learn More →
-                    </button>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-green-600">
+                      {service.price}
+                    </span>
+
+                    <div className="flex gap-2">
+                      {/* Learn */}
+                      <button className="px-3 py-2 text-white bg-blue-600 rounded-lg">
+                        Learn
+                      </button>
+
+                      {/* ✅ Book Now → Contact Page */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault(); // stop Link navigation
+                          navigate("/contact");
+                        }}
+                        className="px-3 py-2 font-semibold bg-yellow-400 rounded-lg hover:bg-yellow-500"
+                      >
+                        Book Now
+                      </button>
+                    </div>
                   </div>
                 </div>
+
+                {/* GLOW */}
+                <div className="absolute inset-0 opacity-0 bg-blue-400/10 blur-xl group-hover:opacity-100"></div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* 🔥 WHY CHOOSE US */}
       <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Why Choose Us</h2>
+        <div className="max-w-6xl px-4 mx-auto">
+          <h2 className="mb-12 text-4xl font-bold text-center">
+            Why Choose Us
+          </h2>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 ">
             {[
-              { icon: <HiSparkles size={40} />, title: "Quality Service", desc: "Expert technicians with years of experience" },
-              { icon: <HiClock size={40} />, title: "Quick Service", desc: "Fast turnaround without compromising quality" },
-              { icon: <HiUsers size={40} />, title: "Professional Team", desc: "Certified and trained professionals" },
-              { icon: <HiCheckCircle size={40} />, title: "Guaranteed Work", desc: "100% satisfaction guaranteed" },
-            ].map((item, idx) => (
-              <div key={idx} data-aos="zoom-in" data-aos-delay={idx * 100} className="text-center">
-                <div className="text-blue-600 mb-4 flex justify-center">{item.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+              { icon: <HiSparkles size={28} />, title: "Quality Service", desc: "Expert technicians" },
+              { icon: <HiClock size={28} />, title: "Fast Service", desc: "Quick turnaround" },
+              { icon: <HiUsers size={28} />, title: "Professional Team", desc: "Certified experts" },
+              { icon: <HiCheckCircle size={28} />, title: "Guaranteed Work", desc: "100% satisfaction" },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="p-6 text-center transition bg-gray-100 border-l-4 border-blue-600 shadow-md rounded-xl hover:shadow-xl hover:-translate-y-2"
+              >
+                {/* ✅ Centered Icon */}
+                <div className="flex items-center justify-center mb-4">
+                  <div className="flex items-center justify-center w-16 h-16 text-blue-600 bg-blue-100 rounded-full">
+                    {item.icon}
+                  </div>
+                </div>
+
+                <h3 className="mb-2 font-bold text-gray-800">
+                  {item.title}
+                </h3>
+
+                <p className="text-sm text-gray-600">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
-          <h2 className="text-3xl font-bold mb-4">Ready to Service Your Vehicle?</h2>
-          <p className="text-lg mb-6">Book your appointment today and get professional service at your doorstep</p>
-          <Link
-            to="/contact"
-            className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition"
-          >
-            Book Now
-          </Link>
-        </div>
+      {/* CTA */}
+      <section className="py-12 text-center text-white bg-gradient-to-r from-blue-600 to-blue-800">
+        <h2 className="mb-4 text-3xl font-bold">
+          Ready to Service Your Vehicle?
+        </h2>
+
+        <Link
+          to="/contact"
+          className="inline-block px-8 py-3 font-bold text-blue-600 bg-white rounded-lg hover:bg-gray-100"
+        >
+          Book Now
+        </Link>
       </section>
 
       <Footer />
+      <WhatsAppChatbot />
     </>
   );
 };

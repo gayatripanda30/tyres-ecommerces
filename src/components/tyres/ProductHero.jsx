@@ -1,41 +1,42 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-// 👉 Replace these with your own images (put in /assets)
-import hero1 from "../../assets/hero1.jpg";
-import hero2 from "../../assets/hero2.png";
-import hero3 from "../../assets/brand3.png";
+import hero1 from "../../assets/image6.jpg";
+import hero2 from "../../assets/image3.jpg";
+import hero3 from "../../assets/hero1.jpg";
 
 const slides = [
   {
     img: hero1,
+    title: "Drive Beyond Limits",
+    subtitle: "Engineered for performance, built for every road",
   },
   {
     img: hero2,
-    title: "Unbeatable Deals",
-    subtitle: "Flat ₹1000 OFF on premium tyres",
+    title: "Mega Savings Week",
+    subtitle: "Save up to ₹1500 on top tyre brands today",
   },
   {
     img: hero3,
-    title: "Performance Meets Comfort",
-    subtitle: "Upgrade your ride today",
+    title: "Grip That You Can Trust",
+    subtitle: "Safety, control & comfort in every journey",
   },
 ];
 
 const ProductHero = () => {
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate(); // ✅ added
 
-  // 👉 Auto slide
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 4000);
-
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="relative h-[70vh] w-full overflow-hidden">
-      
+
       {/* Background Images */}
       {slides.map((slide, index) => (
         <img
@@ -48,30 +49,48 @@ const ProductHero = () => {
         />
       ))}
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center items-center text-center h-full text-white px-4">
-        
-        <h1 className="text-3xl md:text-5xl font-bold mb-4 animate-fadeIn">
-          {slides[current].title}
-        </h1>
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/50"></div>
 
-        <p className="text-lg md:text-xl mb-6 text-gray-200 animate-fadeIn delay-200">
-          {slides[current].subtitle}
-        </p>
+      {/* Overlay Card */}
+      <div className="relative z-10 flex items-center justify-center h-full px-4">
 
-        <div className="flex gap-4 animate-fadeIn delay-300">
-          <button className="bg-yellow-400 text-black px-6 py-3 rounded font-semibold hover:scale-105 transition">
-            Shop Now
-          </button>
+        <div className="w-full max-w-2xl p-12 text-center text-white border shadow-2xl bg-white/10 backdrop-blur-md rounded-2xl border-white/40">
 
-          <button className="border border-white px-6 py-3 rounded hover:bg-white hover:text-black transition">
-            View Deals
-          </button>
+          <h1 className="mb-4 text-3xl font-bold md:text-5xl">
+            {slides[current].title}
+          </h1>
+
+          <p className="mb-6 text-gray-200 md:text-lg">
+            {slides[current].subtitle}
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex justify-center gap-4">
+
+            {/* Shop Now */}
+            <button
+              onClick={() => navigate("/tyres")}
+              className="px-6 py-2 font-semibold text-black transition bg-yellow-400 rounded-lg hover:bg-yellow-300"
+            >
+              Shop Now
+            </button>
+
+            {/* ✅ View Offers Button */}
+            <button
+              onClick={() => navigate("/special-offers")}
+              className="px-6 py-2 font-semibold transition border border-white rounded-lg hover:bg-white hover:text-black"
+            >
+              View Offers
+            </button>
+
+          </div>
+
         </div>
       </div>
 
       {/* Dots */}
-      <div className="absolute bottom-5 w-full flex justify-center gap-2 z-10">
+      <div className="absolute z-10 flex justify-center w-full gap-2 bottom-5">
         {slides.map((_, i) => (
           <div
             key={i}

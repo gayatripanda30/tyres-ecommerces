@@ -1,3 +1,14 @@
+// ✅ IMPORT IMAGES
+import floorMats from "../assets/accessories.png";
+import steering from "../assets/accessories1.png";
+import phone from "../assets/accessories2.png";
+import headrest from "../assets/accessories3.png";
+import purifier from "../assets/accessories2.png";
+import seat from "../assets/accessories.png";
+import dashcam from "../assets/accessories1.png";
+import vacuum from "../assets/accessories3.png";
+import wipers from "../assets/accessories.png";
+
 export const accessories = [
   {
     id: 1,
@@ -9,9 +20,9 @@ export const accessories = [
     rating: 4.3,
     reviews: 145,
     badge: "Best Seller",
-    image: "https://via.placeholder.com/300x300?text=Floor+Mats",
+    image: floorMats, // ✅ UPDATED
     category: "Interior Accessories",
-    description: "Premium quality car floor mats protect your vehicle interior"
+    description: "Premium quality car floor mats"
   },
   {
     id: 2,
@@ -23,9 +34,9 @@ export const accessories = [
     rating: 4.5,
     reviews: 234,
     badge: "Popular",
-    image: "https://via.placeholder.com/300x300?text=Steering+Cover",
+    image: steering,
     category: "Interior Accessories",
-    description: "Comfortable steering wheel cover with grip"
+    description: "Comfortable steering wheel cover"
   },
   {
     id: 3,
@@ -37,9 +48,9 @@ export const accessories = [
     rating: 4.6,
     reviews: 312,
     badge: "New",
-    image: "https://via.placeholder.com/300x300?text=Phone+Holder",
+    image: phone,
     category: "Tech Accessories",
-    description: "Dashboard mobile phone mount holder"
+    description: "Dashboard mobile holder"
   },
   {
     id: 4,
@@ -51,9 +62,9 @@ export const accessories = [
     rating: 4.4,
     reviews: 189,
     badge: "Best Seller",
-    image: "https://via.placeholder.com/300x300?text=Headrest",
+    image: headrest,
     category: "Comfort Accessories",
-    description: "Memory foam headrest pillows for comfort"
+    description: "Memory foam pillows"
   },
   {
     id: 5,
@@ -65,9 +76,9 @@ export const accessories = [
     rating: 4.7,
     reviews: 267,
     badge: "Premium",
-    image: "https://via.placeholder.com/300x300?text=Air+Purifier",
+    image: purifier,
     category: "Air Quality",
-    description: "HEPA filter car air purifier with fragrance"
+    description: "HEPA filter purifier"
   },
   {
     id: 6,
@@ -79,9 +90,9 @@ export const accessories = [
     rating: 4.5,
     reviews: 423,
     badge: "Best Seller",
-    image: "https://via.placeholder.com/300x300?text=Seat+Covers",
+    image: seat,
     category: "Interior Accessories",
-    description: "Premium quality seat covers protect your car seats"
+    description: "Premium seat covers"
   },
   {
     id: 7,
@@ -93,9 +104,9 @@ export const accessories = [
     rating: 4.8,
     reviews: 512,
     badge: "Premium",
-    image: "https://via.placeholder.com/300x300?text=Dashboard+Cam",
+    image: dashcam,
     category: "Security Accessories",
-    description: "4K dashboard camera with night vision"
+    description: "4K dashcam"
   },
   {
     id: 8,
@@ -107,9 +118,9 @@ export const accessories = [
     rating: 4.4,
     reviews: 178,
     badge: "Trending",
-    image: "https://via.placeholder.com/300x300?text=Vacuum",
+    image: vacuum,
     category: "Cleaning Accessories",
-    description: "Portable car vacuum cleaner"
+    description: "Portable vacuum"
   },
   {
     id: 9,
@@ -121,8 +132,8 @@ export const accessories = [
     rating: 4.3,
     reviews: 267,
     badge: "Popular",
-    image: "https://via.placeholder.com/300x300?text=Wipers",
+    image: wipers,
     category: "Maintenance",
-    description: "High quality windshield wipers"
+    description: "High quality wipers"
   },
 ];

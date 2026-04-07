@@ -1,141 +1,129 @@
-const ProductGrid = ({ filteredTyres, onSelectTyre }) => {
+import { useState } from "react";
+
+const ProductGrid = ({ filteredTyres, onSelectTyre, onAddToCart }) => {
+
+  // ✅ Toast State
+  const [showToast, setShowToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+
+  // ✅ Handle Add To Cart
+  const handleAdd = (tyre) => {
+    onAddToCart(tyre);
+
+    setToastMsg(`${tyre.name} added to cart 🛒`);
+    setShowToast(true);
+
+    setTimeout(() => {
+      setShowToast(false);
+    }, 2000);
+  };
+
   return (
     <div className="md:col-span-3 lg:col-span-4">
+
+      {/* ✅ TOAST POPUP */}
+      {showToast && (
+        <div className="fixed z-[2000] px-6 py-3 text-black transition bg-gray-300 shadow-lg top-6 right-6 rounded-full animate-fadeIn">
+          {toastMsg}
+        </div>
+      )}
+
       {filteredTyres.length > 0 ? (
 
-        /* ✅ GRID */
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
 
-          {filteredTyres.map((tyre) => (
-            <div
-              key={tyre.id}
-              onClick={() => onSelectTyre(tyre)}
-              className="relative flex flex-col h-[420px] w-full max-w-[320px] mx-auto bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 cursor-pointer group"
-            >
+          {filteredTyres.map((tyre) => {
+            const finalPrice = (tyre.price * (1 - tyre.discount / 100)).toFixed(0);
 
-              {/* 🔥 Badges */}
-              <div className="absolute z-10 flex flex-col gap-2 top-3 left-3">
+            return (
+              <div
+                key={tyre.id}
+                onClick={() => onSelectTyre(tyre)}
+                className="relative flex flex-col w-full max-w-[320px] mx-auto bg-white border rounded-2xl shadow-md hover:shadow-xl transition duration-300 cursor-pointer"
+              >
+
+                {/* Discount */}
                 {tyre.discount > 0 && (
-                  <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-600 rounded-full">
-                    -{tyre.discount}%
-                  </span>
+                  <div className="absolute px-3 py-1 text-xs font-bold text-white bg-gray-900 rounded-full top-3 right-3">
+                    {tyre.discount}% OFF
+                  </div>
                 )}
-                {tyre.badge && (
-                  <span className="px-2 py-1 text-xs font-semibold text-white bg-black rounded-full">
-                    {tyre.badge}
-                  </span>
+
+                {/* Warranty */}
+                {tyre.warranty && (
+                  <div className="absolute text-center top-3 left-3">
+                    <div className="text-xs font-bold text-black">
+                      {tyre.warranty.split(" ")[0]}
+                    </div>
+                    <div className="text-[10px] text-gray-600">MONTH</div>
+                    <div className="text-[10px] font-semibold">WARRANTY</div>
+                  </div>
                 )}
-              </div>
 
-              {/* 🔍 Image (Fixed Height) */}
-              <div className="flex items-center justify-center overflow-hidden h-44 bg-gray-50 rounded-t-2xl">
-                <img
-                  src={tyre.image}
-                  alt={tyre.name}
-                  className="object-contain transition-transform duration-500 w-36 h-36 group-hover:scale-110"
-                />
-              </div>
-
-              {/* 📦 Content */}
-              <div className="flex flex-col flex-1 p-4">
-
-                {/* Type */}
-                <p className="mb-1 text-xs font-semibold uppercase text-black/70">
-                  {tyre.type}
-                </p>
-
-                {/* Name (Fixed height) */}
-                <h3 className="text-sm font-bold text-black line-clamp-2 h-[40px]">
-                  {tyre.name}
-                </h3>
-
-                {/* ⭐ Rating */}
-                <div className="flex items-center gap-1 mt-2 text-sm">
-                  <span className="text-yellow-500">
-                    {"★".repeat(Math.floor(tyre.rating))}
-                    {"☆".repeat(5 - Math.floor(tyre.rating))}
-                  </span>
-                  <span className="text-xs text-gray-500">
-                    ({tyre.reviews})
-                  </span>
+                {/* Image */}
+                <div className="flex items-center justify-center h-48 p-4 bg-gray-50 rounded-t-2xl">
+                  <img
+                    src={tyre.image}
+                    alt={tyre.name}
+                    className="object-contain h-32 transition duration-500 hover:scale-105"
+                  />
                 </div>
 
-                {/* 💰 Price */}
-                <div className="mt-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-black">
-                      ₹{(tyre.price * (1 - tyre.discount / 100)).toFixed(0)}
-                    </span>
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-4">
 
-                    {tyre.discount > 0 && (
-                      <span className="text-sm text-gray-400 line-through">
-                        ₹{tyre.price}
-                      </span>
-                    )}
+                  <h3 className="text-base font-bold text-blue-900 line-clamp-2">
+                    {tyre.name}
+                  </h3>
+
+                  <p className="mt-1 text-sm font-semibold text-black">
+                    MRP - ₹{tyre.price}
+                  </p>
+
+                  <hr className="my-2" />
+
+                  <div className="space-y-1 text-sm text-black">
+                    {tyre.warranty && <p>• Warranty: {tyre.warranty}</p>}
+                    {tyre.capacity && <p>• Capacity: {tyre.capacity}</p>}
+                    <p>• Price: ₹{finalPrice}</p>
                   </div>
 
-                  {tyre.discount > 0 && (
-                    <p className="text-xs text-gray-500">
-                      Save ₹{(tyre.price * tyre.discount / 100).toFixed(0)}
-                    </p>
-                  )}
-                </div>
+                  {/* Buttons */}
+                  <div className="flex gap-2 mt-4">
 
-                {/* 👉 Push buttons to bottom */}
-                <div className="pt-3 mt-auto">
-
-                  {/* 🛒 Buttons */}
-                  <div className="flex gap-2">
-                    
-                    {/* 🟡 Buy Now */}
+                    {/* Buy Now */}
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         onSelectTyre(tyre);
                       }}
-                      className="flex-1 py-2 text-sm font-semibold text-black transition bg-yellow-400 rounded-lg hover:bg-yellow-500"
+                      className="flex-1 py-2 text-sm font-semibold text-white bg-blue-900 rounded-full hover:bg-gray-200 hover:text-black"
                     >
                       Buy Now
                     </button>
 
-                    {/* ⚪ View */}
+                    {/* ✅ Add Cart with Toast */}
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        onSelectTyre(tyre);
+                        handleAdd(tyre);
                       }}
-                      className="flex-1 py-2 text-sm font-semibold text-black transition bg-gray-200 rounded-lg hover:bg-gray-300"
+                      className="flex-1 py-2 text-sm font-semibold text-black bg-gray-200 rounded-full hover:bg-blue-900 hover:text-white"
                     >
-                      View
+                      Add Cart
                     </button>
 
                   </div>
                 </div>
-
               </div>
-            </div>
-          ))}
+            );
+          })}
 
         </div>
 
       ) : (
-
-        /* ❌ EMPTY STATE */
         <div className="py-20 text-center">
-          <div className="mb-4 text-7xl">🚫</div>
-          <h2 className="text-2xl font-bold text-black">
-            No tyres found
-          </h2>
-          <p className="mt-2 mb-6 text-gray-500">
-            Try adjusting your filters
-          </p>
-
-          <button
-            onClick={() => window.location.reload()}
-            className="px-6 py-3 text-white bg-green-600 rounded-lg hover:bg-green-700"
-          >
-            Reset Filters
-          </button>
+          <h2 className="text-2xl font-bold">No products found</h2>
         </div>
       )}
     </div>

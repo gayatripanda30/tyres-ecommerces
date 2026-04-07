@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 
 import tyre1 from "../../assets/tyre1.png";
 import tyre2 from "../../assets/tyre2.png";
@@ -13,7 +14,6 @@ import tyre10 from "../../assets/tyre10.png";
 import tyre11 from "../../assets/tyre11.png";
 import tyre12 from "../../assets/tyre12.png";
 
-
 import pirelli from "../../assets/brand7.png";
 import michelin from "../../assets/brand6.png";
 import apollo from "../../assets/brand2.png";
@@ -21,22 +21,23 @@ import mrf from "../../assets/brand1.png";
 import ceat from "../../assets/brand3.png";
 
 const tyres = [
-  { name: "SCORPION VERDE AS", image: tyre1, brandLogo: pirelli, rating: 4.6, reviews: 1733, price: 334 },
-  { name: "DUELER HP SPORT", image: tyre2, brandLogo: apollo, rating: 4.6, reviews: 1792, price: 325 },
-  { name: "PILOT SPORT 4 S", image: tyre3, brandLogo: michelin, rating: 4.8, reviews: 5931, price: 960 },
-  { name: "CINTURATO P7", image: tyre4, brandLogo: mrf, rating: 4.6, reviews: 3323, price: 334 },
-  { name: "LATITUDE SPORT 3", image: tyre5, brandLogo: ceat, rating: 4.5, reviews: 1700, price: 350 },
-  { name: "DUELER AT 697 OWL", image: tyre6, brandLogo: pirelli, rating: 4.3, reviews: 1300, price: 310 },
-  { name: "DYNAPRO HP2 RA33", image: tyre7, brandLogo: michelin, rating: 4.7, reviews: 2200, price: 870 },
-  { name: "SCORPION AT PLUS", image: tyre8, brandLogo:apollo, rating: 4.1, reviews: 800, price: 260 },
-  { name: "DYNAPRO HP2 RA33", image: tyre9, brandLogo: mrf, rating: 4.6, reviews: 1400, price: 390 },
-  { name: "SCORPION AT PLUS", image: tyre10, brandLogo: pirelli, rating: 4.2, reviews: 1000, price: 300 },
-  { name: "ECOPIA EP 500", image: tyre11, brandLogo: ceat, rating: 4.9, reviews: 3000, price: 1100 },
-  { name: "POTENZA ADRENALIN RE003", image: tyre12, brandLogo: mrf, rating: 4.3, reviews: 900, price: 280 },
+  { name: "SCORPION VERDE AS", brand: "pirelli", image: tyre1, brandLogo: pirelli, rating: 4.6, reviews: 1733, price: 334 },
+  { name: "DUELER HP SPORT", brand: "apollo", image: tyre2, brandLogo: apollo, rating: 4.6, reviews: 1792, price: 325 },
+  { name: "PILOT SPORT 4 S", brand: "michelin", image: tyre3, brandLogo: michelin, rating: 4.8, reviews: 5931, price: 960 },
+  { name: "CINTURATO P7", brand: "mrf", image: tyre4, brandLogo: mrf, rating: 4.6, reviews: 3323, price: 334 },
+  { name: "LATITUDE SPORT 3", brand: "ceat", image: tyre5, brandLogo: ceat, rating: 4.5, reviews: 1700, price: 350 },
+  { name: "DUELER AT 697 OWL", brand: "pirelli", image: tyre6, brandLogo: pirelli, rating: 4.3, reviews: 1300, price: 310 },
+  { name: "DYNAPRO HP2 RA33", brand: "michelin", image: tyre7, brandLogo: michelin, rating: 4.7, reviews: 2200, price: 870 },
+  { name: "SCORPION AT PLUS", brand: "apollo", image: tyre8, brandLogo: apollo, rating: 4.1, reviews: 800, price: 260 },
+  { name: "DYNAPRO HP2 RA33", brand: "mrf", image: tyre9, brandLogo: mrf, rating: 4.6, reviews: 1400, price: 390 },
+  { name: "SCORPION AT PLUS", brand: "pirelli", image: tyre10, brandLogo: pirelli, rating: 4.2, reviews: 1000, price: 300 },
+  { name: "ECOPIA EP 500", brand: "ceat", image: tyre11, brandLogo: ceat, rating: 4.9, reviews: 3000, price: 1100 },
+  { name: "POTENZA ADRENALIN RE003", brand: "mrf", image: tyre12, brandLogo: mrf, rating: 4.3, reviews: 900, price: 280 },
 ];
 
 const TyreTypes = () => {
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate(); // ✅ ADDED
   const cardsToShow = 4;
 
   const nextSlide = () => {
@@ -72,12 +73,11 @@ const TyreTypes = () => {
         .fade-in-down { animation: fadeInDown 0.8s ease-out; }
         .scale-in { animation: scaleIn 0.6s ease-out; }
       `}</style>
-     
+
       <h2 className="mb-12 text-4xl font-bold text-center text-gray-800 fade-in-down">
         Our Popular 4x4 Tyres
       </h2>
 
-     
       <div className="relative mx-auto overflow-hidden max-w-7xl">
         <div
           className="flex transition-transform duration-500 ease-in-out"
@@ -86,10 +86,17 @@ const TyreTypes = () => {
           }}
         >
           {tyres.map((tyre, i) => (
-            <div key={i} className="flex-shrink-0 w-1/4 p-3 scale-in" style={{animationDelay: `${i * 0.1}s`}}>
-              <div className="overflow-hidden transition duration-300 bg-white shadow-md rounded-2xl hover:shadow-2xl hover:-translate-y-2 hover:scale-105">
+            <div
+              key={i}
+              className="flex-shrink-0 w-1/4 p-3 scale-in"
+              style={{ animationDelay: `${i * 0.1}s` }}
+            >
+              {/* ✅ CLICK ADDED HERE */}
+              <div
+                onClick={() => navigate(`/brand/${tyre.brand}`)}
+                className="overflow-hidden transition duration-300 bg-white shadow-md cursor-pointer rounded-2xl hover:shadow-2xl hover:-translate-y-2 hover:scale-105"
+              >
 
-              
                 <div className="flex justify-end p-3">
                   <img
                     src={tyre.brandLogo}
@@ -98,7 +105,6 @@ const TyreTypes = () => {
                   />
                 </div>
 
-              
                 <div className="flex justify-center px-6 pb-4">
                   <img
                     src={tyre.image}
@@ -107,7 +113,6 @@ const TyreTypes = () => {
                   />
                 </div>
 
-              
                 <div className="px-5 pb-5">
                   <h3 className="font-semibold text-gray-800">
                     {tyre.name}
@@ -123,7 +128,6 @@ const TyreTypes = () => {
                   </p>
                 </div>
 
-             
                 <div className="flex items-center justify-between px-5 py-4 border-t bg-gray-50">
                   <div>
                     <p className="text-sm text-gray-500">From</p>
@@ -131,8 +135,6 @@ const TyreTypes = () => {
                       ${tyre.price} ea
                     </p>
                   </div>
-
-                 
                 </div>
 
               </div>
@@ -140,23 +142,17 @@ const TyreTypes = () => {
           ))}
         </div>
 
-        {/* 🔹 Arrows */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-0 px-4 py-2 -translate-y-1/2 bg-yellow-400 rounded-md shadow top-1/2 hover:bg-yellow-500"
-        >
+        {/* Arrows */}
+        <button onClick={prevSlide} className="absolute left-0 px-4 py-2 -translate-y-1/2 bg-yellow-400 rounded-md shadow top-1/2 hover:bg-yellow-500">
           ←
         </button>
 
-        <button
-          onClick={nextSlide}
-          className="absolute right-0 px-4 py-2 -translate-y-1/2 bg-yellow-400 rounded-md shadow top-1/2 hover:bg-yellow-500"
-        >
+        <button onClick={nextSlide} className="absolute right-0 px-4 py-2 -translate-y-1/2 bg-yellow-400 rounded-md shadow top-1/2 hover:bg-yellow-500">
           →
         </button>
       </div>
 
-      {/* 🔹 Dots */}
+      {/* Dots */}
       <div className="flex justify-center gap-2 mt-8">
         {Array.from({ length: tyres.length - cardsToShow + 1 }).map((_, i) => (
           <div

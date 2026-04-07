@@ -10,6 +10,7 @@ import ProductModal from "../../components/tyres/ProductModal";
 import OfferBanner from "../../components/tyres/OfferBanner";
 import { accessories } from "../../data/accessories";
 import { HiArrowLeft } from "react-icons/hi";
+import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";
 
 const Accessories = () => {
   const { addToCart } = useCart();
@@ -48,9 +49,9 @@ const Accessories = () => {
 
       <div className="flex-1">
         {/* Breadcrumb */}
-        <div className="bg-white px-6 py-3 border-b">
-          <div className="max-w-7xl mx-auto">
-            <Link to="/products" className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold">
+        <div className="px-6 py-3 bg-white border-b">
+          <div className="mx-auto max-w-7xl">
+            <Link to="/products" className="flex items-center gap-2 font-semibold text-blue-600 hover:text-blue-700">
               <HiArrowLeft size={18} />
               Back to Products
             </Link>
@@ -78,12 +79,13 @@ const Accessories = () => {
 
             <div className="md:col-span-3 lg:col-span-4">
               <ProductGrid
-                filteredTyres={filteredAccessories}
-                onSelectTyre={(accessory) => {
-                  setSelectedAccessory(accessory);
-                  setQuantity(1);
-                }}
-              />
+  filteredTyres={filteredAccessories}
+  onAddToCart={(acc) => addToCart(acc)}   // ✅ ADD THIS
+  onSelectTyre={(accessory) => {
+    setSelectedAccessory(accessory);
+    setQuantity(1);
+  }}
+/>
             </div>
           </div>
         </div>
@@ -107,6 +109,7 @@ const Accessories = () => {
       )}
 
       <Footer />
+      <WhatsAppChatbot />
     </div>
   );
 };

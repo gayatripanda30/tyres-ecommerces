@@ -4,7 +4,15 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
+import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";
 import { HiCheckCircle, HiTruck, HiShieldCheck, HiSparkles } from "react-icons/hi";
+
+// ✅ IMAGES
+import heroImg from "../../assets/image6.jpg";
+import tyreImg from "../../assets/tyre.jpg";
+import carBatteryImg from "../../assets/battery.jpg";
+import bikeBatteryImg from "../../assets/battery.jpg";
+import accessoriesImg from "../../assets/accessories.jpg";
 
 const Products = () => {
   useEffect(() => {
@@ -19,41 +27,37 @@ const Products = () => {
     {
       id: 1,
       name: "Car Tyres",
-      description: "Premium quality car tyres from top brands with superior grip and durability.",
-      icon: "🛞",
+      description: "Premium tyres with superior grip and durability.",
       path: "/tyres",
-      features: ["All weather tyres", "Extended warranty", "Free installation", "Multiple brands"],
-      image: "🚗",
+      image: tyreImg,
+      features: ["All weather", "Warranty", "Free fitting", "Top brands"],
       products: "500+",
     },
     {
       id: 2,
-      name: "Car Batteries",
-      description: "High-performance car batteries with long lifespan and reliable power backup.",
-      icon: "🔋",
-      path: "/products/car-batteries",
-      features: ["Heavy duty", "Quick charging", "Warranty included", "Free delivery"],
-      image: "🔧",
+      name: " Batteries",
+      description: "High-performance batteries with long lifespan.",
+      path: "/products/batteries",
+      image: carBatteryImg,
+      features: ["Heavy duty", "Quick charge", "Warranty", "Delivery"],
       products: "200+",
     },
     {
       id: 3,
       name: "Bike Batteries",
-      description: "Lightweight bike batteries designed for optimal performance and longevity.",
-      icon: "⚡",
+      description: "Compact and powerful batteries for bikes.",
       path: "/products/bike-batteries",
-      features: ["Light weight", "Compact design", "Corrosion resistant", "Best price"],
-      image: "🏍️",
+      image: bikeBatteryImg,
+      features: ["Lightweight", "Durable", "Affordable", "Reliable"],
       products: "150+",
     },
     {
       id: 4,
       name: "Accessories",
-      description: "Complete range of automotive accessories for comfort and safety.",
-      icon: "🎯",
+      description: "Complete range of automotive accessories.",
       path: "/products/accessories",
-      features: ["Quality products", "Best brands", "Competitve prices", "Expert advice"],
-      image: "🛠️",
+      image: accessoriesImg,
+      features: ["Best brands", "Quality", "Affordable", "Expert help"],
       products: "300+",
     },
   ];
@@ -62,59 +66,83 @@ const Products = () => {
     <>
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
-        <div className="max-w-6xl mx-auto px-4 text-center" data-aos="fade-down">
-          <h1 className="text-5xl font-bold mb-4">Our Products</h1>
-          <p className="text-xl text-green-100">Everything you need for your vehicle - tyres, batteries, and accessories</p>
+      {/* 🔥 HERO SECTION (INCREASED HEIGHT) */}
+      <section
+        className="relative h-[85vh] flex items-center justify-center text-white"
+        style={{
+          backgroundImage: `url(${heroImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/70"></div>
+
+        <div className="relative z-10 max-w-4xl px-4 text-center" data-aos="zoom-in">
+          <h1 className="mb-6 text-5xl font-extrabold leading-tight md:text-6xl">
+            Premium Auto Products
+          </h1>
+          <p className="text-lg text-gray-200 md:text-xl">
+            Discover top-quality tyres, batteries, and accessories for your vehicle
+          </p>
+
+          {/* CTA */}
+          <Link
+            to="/tyres"
+            className="inline-block px-8 py-3 mt-6 font-semibold text-black transition bg-yellow-400 rounded-lg hover:bg-yellow-300"
+          >
+            Explore Now →
+          </Link>
         </div>
       </section>
 
-      {/* Products Grid */}
+      {/* 🔥 PRODUCTS GRID (3D CARD EFFECT) */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Shop by Category</h2>
+        <div className="max-w-6xl px-4 mx-auto">
+          <h2 className="mb-12 text-4xl font-bold text-center">Shop by Category</h2>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             {products.map((product, index) => (
               <Link
                 key={product.id}
                 to={product.path}
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
-                className="group bg-white rounded-2xl border-2 border-gray-200 shadow-md hover:shadow-2xl hover:border-green-500 transition-all duration-300 overflow-hidden cursor-pointer"
+                className="overflow-hidden transition-all duration-500 transform bg-white shadow-xl group rounded-2xl hover:-translate-y-3 hover:shadow-2xl"
               >
-                <div className="p-8">
-                  {/* Icon */}
-                  <div className="text-7xl text-center mb-4 group-hover:scale-110 transition-transform">{product.icon}</div>
+                {/* IMAGE */}
+                <div className="relative overflow-hidden h-52">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="object-cover w-full h-full transition duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/40"></div>
 
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold text-gray-800 mb-3 group-hover:text-green-600 transition text-center">
-                    {product.name}
-                  </h3>
+                  <div className="absolute text-white bottom-4 left-4">
+                    <h3 className="text-xl font-bold">{product.name}</h3>
+                    <p className="text-sm">{product.products} Products</p>
+                  </div>
+                </div>
 
-                  {/* Product Count */}
-                  <p className="text-center text-green-600 font-semibold mb-4">{product.products} Products</p>
+                {/* CONTENT */}
+                <div className="p-5">
+                  <p className="mb-4 text-sm text-gray-600">
+                    {product.description}
+                  </p>
 
-                  {/* Description */}
-                  <p className="text-gray-600 mb-4 text-sm text-center">{product.description}</p>
-
-                  {/* Features */}
-                  <ul className="space-y-2 mb-6">
+                  <ul className="mb-4 space-y-2">
                     {product.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center gap-2 text-sm text-gray-700">
-                        <HiCheckCircle className="text-green-500 flex-shrink-0" size={14} />
+                        <HiCheckCircle className="text-green-500" size={14} />
                         {feature}
                       </li>
                     ))}
                   </ul>
 
-                  {/* Button */}
-                  <div className="pt-4 border-t border-gray-200">
-                    <button className="w-full bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition group-hover:translate-y-[-2px]">
-                      Shop Now →
-                    </button>
-                  </div>
+                  <button className="w-[80%] py-2 font-semibold text-white transition bg-green-700 rounded-full hover:bg-green-800 ml-5">
+                    Shop Now →
+                  </button>
                 </div>
               </Link>
             ))}
@@ -122,61 +150,43 @@ const Products = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Why Shop With Us</h2>
+      {/* 🔥 WHY CHOOSE US (3D GLASS CARDS) */}
+      <section className="py-20 bg-gradient-to-br from-gray-200 to-gray-300">
+        <div className="max-w-6xl px-4 mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-14">Why Choose Us ?</h2>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-10 md:grid-cols-4">
             {[
-              { icon: <HiSparkles size={40} />, title: "Quality Products", desc: "Original and certified products only" },
-              { icon: <HiCheckCircle size={40} />, title: "Best Prices", desc: "Competitive rates with great discounts" },
-              { icon: <HiTruck size={40} />, title: "Fast Delivery", desc: "Quick shipping to your doorstep" },
-              { icon: <HiShieldCheck size={40} />, title: "Warranty", desc: "Full warranty on all products" },
+              { icon: <HiSparkles size={40} />, title: "Premium Quality", desc: "Certified products only" },
+              { icon: <HiCheckCircle size={40} />, title: "Best Prices", desc: "Affordable & competitive" },
+              { icon: <HiTruck size={40} />, title: "Fast Delivery", desc: "Quick doorstep delivery" },
+              { icon: <HiShieldCheck size={40} />, title: "Warranty", desc: "Guaranteed products" },
             ].map((item, idx) => (
-              <div key={idx} data-aos="zoom-in" data-aos-delay={idx * 100} className="text-center">
-                <div className="text-green-600 mb-4 flex justify-center">{item.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+              <div
+                key={idx}
+                data-aos="zoom-in"
+                data-aos-delay={idx * 100}
+                className="p-8 text-center transition-all duration-500 transform border shadow-xl bg-white/60 backdrop-blur-lg rounded-2xl hover:-translate-y-4 hover:shadow-2xl border-white/40"
+              >
+                <div className="flex justify-center mb-4 text-green-600">
+                  {item.icon}
+                </div>
+                <h3 className="mb-2 text-lg font-bold">{item.title}</h3>
+                <p className="text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Top Categories</h2>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            <div data-aos="fade-right" className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border-l-4 border-blue-600">
-              <h3 className="text-3xl font-bold mb-4">🛞 Premium Tyres</h3>
-              <p className="text-gray-700 mb-4">Explore our extensive collection of car tyres from world-renowned brands. Perfect for all road conditions and weather.</p>
-              <Link to="/tyres" className="text-blue-600 font-bold hover:underline">
-                Browse Tyres →
-              </Link>
-            </div>
-
-            <div data-aos="fade-left" className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-8 border-l-4 border-yellow-600">
-              <h3 className="text-3xl font-bold mb-4">🔋 Batteries & Accessories</h3>
-              <p className="text-gray-700 mb-4">Complete range of car and bike batteries plus premium automotive accessories for every need.</p>
-              <Link to="/products/car-batteries" className="text-yellow-600 font-bold hover:underline">
-                Explore More →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-gradient-to-r from-green-600 to-green-800 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
-          <h2 className="text-3xl font-bold mb-4">Start Shopping Today</h2>
-          <p className="text-lg mb-6">Find the best products for your vehicle at unbeatable prices</p>
+      {/* 🔥 CTA */}
+      <section className="py-12 text-white bg-gradient-to-r from-blue-400 to-green-900">
+        <div className="max-w-4xl px-4 mx-auto text-center">
+          <h2 className="mb-4 text-3xl font-bold">Upgrade Your Vehicle Today</h2>
+          <p className="mb-6">Find the best tyres and accessories now</p>
           <Link
             to="/tyres"
-            className="inline-block bg-white text-green-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition"
+            className="inline-block px-8 py-3 font-bold text-black bg-white rounded-full hover:bg-gray-100"
           >
             Start Shopping
           </Link>
@@ -184,6 +194,7 @@ const Products = () => {
       </section>
 
       <Footer />
+      <WhatsAppChatbot />
     </>
   );
 };

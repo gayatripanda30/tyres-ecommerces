@@ -9,6 +9,7 @@ import Footer from "../../components/layout/Footer";
 import BrandPartners from "../../components/home/BrandPartners";
 import TyreTypes from "../../components/home/TyreTypes";
 import FeaturedCollection from "../../components/home/FeaturedCollection";
+import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";
 
 const Home = () => {
   useEffect(() => {
@@ -50,6 +51,7 @@ const Home = () => {
       </section>
 
       <Footer />
+      <WhatsAppChatbot/>
     </>
   );
 };

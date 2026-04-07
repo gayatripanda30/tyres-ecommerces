@@ -8,6 +8,7 @@ import Contact from "./pages/contact/Contact";
 import CartPage from "./pages/cartpage/CartPage";
 import OurTeam from "./pages/teams/OurTeam";
 import BrandPage from "./pages/brands/brandpage";
+import CheckoutPage from "./pages/checkout/CheckoutPage";
 
 // ✅ Import new pages
 import TermsConditions from "./pages/terms/TermsConditions";
@@ -25,8 +26,8 @@ import GeneralServices from "./pages/services/GeneralServices";
 
 // ✅ Import Products pages
 import Products from "./pages/products/Products";
-import CarBatteries from "./pages/products/CarBatteries";
-import BikeBatteries from "./pages/products/BikeBatteries";
+import Batteries from "./pages/products/Batteries";
+import Lubricants from "./pages/products/Lubricants";
 import Accessories from "./pages/products/Accessories"; 
 
 function App() {
@@ -58,9 +59,10 @@ function App() {
 
           {/* ✅ Products routes */}
           <Route path="/products" element={<Products />} />
-          <Route path="/products/car-batteries" element={<CarBatteries />} />
-          <Route path="/products/bike-batteries" element={<BikeBatteries />} />
+          <Route path="/products/batteries" element={<Batteries />} />
+          <Route path="/products/lubricants" element={<Lubricants />} />
           <Route path="/products/accessories" element={<Accessories />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>
