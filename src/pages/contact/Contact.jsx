@@ -11,11 +11,10 @@ const Contact = () => {
     message: "",
   });
 
-  // ✅ Handle input change with validation
+  // ✅ Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Name → allow only letters & spaces
     if (name === "name") {
       if (!/^[a-zA-Z\s]*$/.test(value)) return;
     }
@@ -28,34 +27,55 @@ const Contact = () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  // ✅ Submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // ✅ CONNECTED TO BACKEND
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!form.name.trim()) {
-      alert("Please enter your name");
-      return;
-    }
+  if (!form.name.trim()) {
+    alert("Please enter your name");
+    return;
+  }
 
-    if (!isValidEmail(form.email)) {
-      alert("Please enter a valid email");
-      return;
-    }
+  if (!isValidEmail(form.email)) {
+    alert("Please enter a valid email");
+    return;
+  }
 
-    alert("✅ Message sent successfully!");
-
-    setForm({
-      name: "",
-      email: "",
-      message: "",
+  try {
+    const response = await fetch("http://localhost:5000/save-message", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      }),
     });
-  };
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("✅ Message saved to Excel!");
+
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    alert("❌ Cannot connect to server");
+  }
+};
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
 
-       {/* 🔥 HERO SECTION (RIGHT SIDE TEXT) */}
+      {/* 🔥 HERO SECTION */}
       <div
         className="relative py-20 text-white"
         style={{
@@ -76,38 +96,34 @@ const Contact = () => {
         </div>
       </div>
 
-
-      {/* ✅ MAIN SECTION */}
-      <div className="px-6 py-12 bg-gray-100">
+      {/* ✅ MAIN CONTENT */}
+      <div className="flex-grow px-6 py-12 bg-gray-100">
         <div className="grid max-w-6xl gap-10 mx-auto md:grid-cols-2">
 
-          {/* ✅ FORM */}
+          {/* FORM */}
           <div className="p-8 bg-white shadow-lg rounded-2xl">
             <h2 className="mb-6 text-2xl font-bold">Send a Message</h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
 
-              {/* NAME */}
               <input
                 type="text"
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                placeholder="Your Name "
+                placeholder="Your Name"
                 className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-yellow-400"
               />
 
-              {/* EMAIL */}
               <input
                 type="email"
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder="Your Email "
+                placeholder="Your Email"
                 className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-yellow-400"
               />
 
-              {/* MESSAGE */}
               <textarea
                 name="message"
                 value={form.message}
@@ -117,15 +133,14 @@ const Contact = () => {
                 className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-yellow-400"
               />
 
-              {/* BUTTON */}
-              <button className="w-[40%] py-3 font-semibold text-white transition bg-blue-900 rounded-full hover:bg-blue-800">
+              <button className="w-[40%] py-3 font-semibold text-white bg-blue-900 rounded-full hover:bg-blue-800">
                 Send Message
               </button>
 
             </form>
           </div>
 
-          {/* ✅ CONTACT INFO */}
+          {/* CONTACT INFO */}
           <div className="space-y-6">
 
             <div className="p-6 bg-white shadow-lg rounded-2xl">
@@ -135,7 +150,6 @@ const Contact = () => {
                 📍 <strong>Address:</strong> Brahmapur, Odisha, India
               </p>
 
-              {/* ✅ Click to call */}
               <p className="mb-3">
                 📞 <strong>Phone:</strong>{" "}
                 <a
@@ -146,7 +160,6 @@ const Contact = () => {
                 </a>
               </p>
 
-              {/* ✅ Click to open mail */}
               <p className="mb-3">
                 📧 <strong>Email:</strong>{" "}
                 <a
@@ -158,7 +171,7 @@ const Contact = () => {
               </p>
             </div>
 
-            {/* ✅ MAP */}
+            {/* MAP */}
             <div className="overflow-hidden shadow-lg rounded-2xl">
               <iframe
                 title="map"
@@ -171,10 +184,11 @@ const Contact = () => {
           </div>
 
         </div>
-         <Footer />
-      <WhatsAppChatbot />
       </div>
-    </>
+
+      <Footer />
+      <WhatsAppChatbot />
+    </div>
   );
 };
 
