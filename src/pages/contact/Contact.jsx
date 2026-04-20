@@ -43,32 +43,23 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await fetch("http://localhost:5000/save-message", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: form.name,
-        email: form.email,
-        message: form.message,
-      }),
-    });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(form),
+});
 
     const data = await response.json();
 
     if (data.success) {
-      alert("✅ Message saved to Excel!");
-
-      setForm({
-        name: "",
-        email: "",
-        message: "",
-      });
+      alert("✅ Message saved successfully!");
+      setForm({ name: "", email: "", message: "" });
     }
   } catch (error) {
-    console.error(error);
-    alert("❌ Cannot connect to server");
-  }
+  console.error(error);
+  alert("❌ Server not running. Please start backend!");
+}
 };
 
   return (
