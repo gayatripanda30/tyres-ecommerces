@@ -23,14 +23,14 @@ const ProductGrid = ({ filteredTyres, onSelectTyre, onAddToCart }) => {
 
       {/* ✅ TOAST POPUP */}
       {showToast && (
-        <div className="fixed z-[2000] px-6 py-3 text-black transition bg-gray-300 shadow-lg top-6 right-6 rounded-full animate-fadeIn">
+        <div className="fixed z-[2000] left-4 right-4 px-4 py-3 text-sm text-center text-black transition bg-gray-300 shadow-lg sm:left-auto sm:right-6 top-6 rounded-full animate-fadeIn">
           {toastMsg}
         </div>
       )}
 
       {filteredTyres.length > 0 ? (
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
 
           {filteredTyres.map((tyre) => {
             const finalPrice = (tyre.price * (1 - tyre.discount / 100)).toFixed(0);
@@ -44,14 +44,14 @@ const ProductGrid = ({ filteredTyres, onSelectTyre, onAddToCart }) => {
 
                 {/* Discount */}
                 {tyre.discount > 0 && (
-                  <div className="absolute px-3 py-1 text-xs font-bold text-white bg-gray-900 rounded-full top-3 right-3">
+                  <div className="absolute px-2 py-1 text-[10px] sm:text-xs font-bold text-white bg-gray-900 rounded-full top-3 right-3">
                     {tyre.discount}% OFF
                   </div>
                 )}
 
                 {/* Warranty */}
                 {tyre.warranty && (
-                  <div className="absolute text-center top-3 left-3">
+                  <div className="absolute max-w-[70px] text-center top-3 left-3">
                     <div className="text-xs font-bold text-black">
                       {tyre.warranty.split(" ")[0]}
                     </div>
@@ -89,7 +89,7 @@ const ProductGrid = ({ filteredTyres, onSelectTyre, onAddToCart }) => {
                   </div>
 
                   {/* Buttons */}
-                  <div className="flex gap-2 mt-4">
+                  <div className="flex flex-col gap-2 mt-4 sm:flex-row">
 
                     {/* Buy Now */}
                     <button
@@ -97,7 +97,7 @@ const ProductGrid = ({ filteredTyres, onSelectTyre, onAddToCart }) => {
                         e.stopPropagation();
                         onSelectTyre(tyre);
                       }}
-                      className="flex-1 py-2 text-sm font-semibold text-white bg-blue-900 rounded-full hover:bg-gray-200 hover:text-black"
+                      className="flex-1 px-3 py-2 text-sm font-semibold text-white bg-blue-900 rounded-full hover:bg-gray-200 hover:text-black"
                     >
                       Buy Now
                     </button>
@@ -108,7 +108,7 @@ const ProductGrid = ({ filteredTyres, onSelectTyre, onAddToCart }) => {
                         e.stopPropagation();
                         handleAdd(tyre);
                       }}
-                      className="flex-1 py-2 text-sm font-semibold text-black bg-gray-200 rounded-full hover:bg-blue-900 hover:text-white"
+                      className="flex-1 px-3 py-2 text-sm font-semibold text-black bg-gray-200 rounded-full hover:bg-blue-900 hover:text-white"
                     >
                       Add Cart
                     </button>

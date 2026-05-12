@@ -73,12 +73,12 @@ const TermsConditions = () => {
 
       {/* 🔹 Hero Section */}
       <div
-        className="relative flex items-center justify-center text-center bg-center bg-cover h-96"
+        className="relative flex items-center justify-center text-center bg-center bg-cover h-72 sm:h-96"
         style={{ backgroundImage: `url(${heroImg})` }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="relative z-10 px-6 text-white">
-          <h1 className="text-5xl font-black md:text-6xl">Terms & Conditions</h1>
+          <h1 className="text-4xl font-black sm:text-5xl md:text-6xl">Terms & Conditions</h1>
           <p className="mt-3 text-lg md:text-xl">
             Please read our terms carefully before using our services
           </p>
@@ -86,9 +86,9 @@ const TermsConditions = () => {
       </div>
 
       {/* 🔹 Main Content */}
-      <div className="flex-1 max-w-4xl px-6 py-12 mx-auto">
+      <div className="flex-1 max-w-4xl px-4 py-10 mx-auto sm:px-6 sm:py-12">
         {/* Last Updated */}
-        <div className="p-8 mb-10 border-l-4 border-blue-600 rounded-lg bg-blue-50">
+        <div className="p-5 mb-10 border-l-4 border-blue-600 rounded-lg sm:p-8 bg-blue-50">
           <p className="text-gray-700">
             <span className="font-bold text-blue-600">Last Updated:</span> March 31, 2026
           </p>
@@ -106,13 +106,13 @@ const TermsConditions = () => {
             >
               <button
                 onClick={() => toggleSection(index)}
-                className={`w-full flex items-center justify-between p-6 transition-all duration-300 ${
+                className={`w-full flex items-center justify-between p-4 sm:p-6 transition-all duration-300 ${
                   expandedSection === index
                     ? "bg-green-600 text-white"
                     : "bg-gray-50 text-gray-800 hover:bg-gray-100"
                 }`}
               >
-                <span className="text-lg font-bold text-left">{section.title}</span>
+                <span className="text-base font-bold text-left sm:text-lg">{section.title}</span>
                 <HiChevronDown
                   size={24}
                   className={`flex-shrink-0 ml-4 transition-transform duration-300 ${
@@ -130,7 +130,7 @@ const TermsConditions = () => {
         </div>
 
         {/* Contact Section */}
-        <div className="p-8 mt-12 border-2 border-green-200 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
+        <div className="p-5 mt-12 border-2 border-green-200 sm:p-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
           <h3 className="mb-4 text-2xl font-bold text-green-800">Questions About Our Terms?</h3>
           <p className="mb-4 text-gray-700">
             If you have any questions or concerns regarding our Terms and Conditions, please contact our customer support team:

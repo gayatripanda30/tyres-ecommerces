@@ -2,11 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --tyreonix-ink: #111827;
+  --tyreonix-muted: #5b6472;
+  --tyreonix-blue: #0f2f6b;
+  --tyreonix-gold: #f4b51c;
+  --tyreonix-green: #15803d;
+  --tyreonix-surface: #f6f8fb;
+}
+
 html,
 body {
   overflow-x: hidden;
 }
 
 body {
+  min-width: 320px;
+  color: var(--tyreonix-ink);
+  background:
+    linear-gradient(180deg, rgba(246, 248, 251, 0.95), rgba(255, 255, 255, 1) 420px),
+    var(--tyreonix-surface);
   font-family: Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  color: #111827;
+  background: rgba(244, 181, 28, 0.35);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #edf1f7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--tyreonix-blue), var(--tyreonix-green));
+  border: 2px solid #edf1f7;
+  border-radius: 999px;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(244, 181, 28, 0.75);
+  outline-offset: 3px;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  touch-action: manipulation;
 }

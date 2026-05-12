@@ -97,7 +97,7 @@ const Services = () => {
       >
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative z-10 max-w-6xl px-4 mx-auto text-center">
-          <h1 className="mb-4 text-5xl font-bold">
+          <h1 className="mb-4 text-4xl font-bold sm:text-5xl">
             Expert Tyre Service
           </h1>
           <p className="text-lg text-gray-200">
@@ -109,7 +109,7 @@ const Services = () => {
       {/* 🔥 SERVICES GRID */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl px-4 mx-auto">
-          <h2 className="mb-12 text-4xl font-bold text-center">
+          <h2 className="mb-10 text-3xl font-bold text-center sm:text-4xl">
             Our Services
           </h2>
 
@@ -166,12 +166,12 @@ const Services = () => {
                     ))}
                   </ul>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <span className="font-bold text-green-600">
                       {service.price}
                     </span>
 
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       {/* Learn */}
                       <button className="px-3 py-2 text-white bg-blue-600 rounded-lg">
                         Learn
@@ -202,11 +202,11 @@ const Services = () => {
       {/* 🔥 WHY CHOOSE US */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl px-4 mx-auto">
-          <h2 className="mb-12 text-4xl font-bold text-center">
+          <h2 className="mb-10 text-3xl font-bold text-center sm:text-4xl">
             Why Choose Us
           </h2>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 ">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: <HiSparkles size={28} />, title: "Quality Service", desc: "Expert technicians" },
               { icon: <HiClock size={28} />, title: "Fast Service", desc: "Quick turnaround" },
@@ -239,7 +239,7 @@ const Services = () => {
 
       {/* CTA */}
       <section className="py-12 text-center text-white bg-gradient-to-r from-blue-600 to-blue-800">
-        <h2 className="mb-4 text-3xl font-bold">
+        <h2 className="px-4 mb-4 text-2xl font-bold sm:text-3xl">
           Ready to Service Your Vehicle?
         </h2>
 

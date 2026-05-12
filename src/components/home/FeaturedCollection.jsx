@@ -33,11 +33,11 @@ const FeaturedCollection = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="px-6 py-16 bg-gray-200">
+    <div className="px-4 py-14 bg-gray-200 sm:px-6 sm:py-16">
 
       {/* 🔥 Heading */}
       <div className="max-w-6xl mx-auto mb-12">
-        <h2 className="font-serif text-4xl font-semibold">
+        <h2 className="font-serif text-3xl font-semibold sm:text-4xl">
           Featured Collection
         </h2>
         <p className="mt-2 text-gray-600">
@@ -46,7 +46,7 @@ const FeaturedCollection = () => {
       </div>
 
       {/* 🔥 Grid */}
-      <div className="grid max-w-6xl gap-8 mx-auto sm:grid-cols-2 md:grid-cols-4">
+      <div className="grid max-w-6xl gap-6 mx-auto sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
 
         {collections.map((item, i) => (
           <div
@@ -58,14 +58,14 @@ const FeaturedCollection = () => {
             <img
               src={item.img}
               alt={item.title}
-              className="object-cover w-full h-[300px] transform group-hover:scale-110 transition duration-500"
+              className="object-cover w-full h-64 transition duration-500 transform sm:h-[300px] group-hover:scale-110"
             />
 
             {/* 🔹 Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
             {/* 🔹 Title (Animated) */}
-            <h3 className="absolute text-lg font-semibold text-white transition duration-500 transform -translate-x-1/2 translate-y-6 opacity-0 bottom-6 left-1/2 md:text-xl group-hover:opacity-100 group-hover:translate-y-0">
+            <h3 className="absolute px-3 text-lg font-semibold text-center text-white transition duration-500 transform -translate-x-1/2 bottom-6 left-1/2 md:text-xl sm:translate-y-6 sm:opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
               {item.title}
             </h3>
 

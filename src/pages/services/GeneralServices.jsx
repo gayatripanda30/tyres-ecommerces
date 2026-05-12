@@ -74,7 +74,7 @@ const GeneralServices = () => {
                      <img
                        src={serviceImg}
                        alt="Wheel Alignment"
-                       className="object-cover w-full h-[400px] transition duration-500 group-hover:scale-105"
+                       className="object-cover w-full h-64 sm:h-80 lg:h-[400px] transition duration-500 group-hover:scale-105"
                      />
      
                    </div>
@@ -274,7 +274,7 @@ const GeneralServices = () => {
                 desc: "Service before or after highway travel",
               },
             ].map((item, idx) => (
-              <div key={idx} className="p-6 border-l-4 border-blue-900 bg-gradient-to-br from-green-50 to-blue-50 rounded-xl w-[70%] mx-auto">
+              <div key={idx} className="w-full p-6 mx-auto border-l-4 border-blue-900 bg-gradient-to-br from-green-50 to-blue-50 rounded-xl sm:w-[85%] lg:w-[70%]">
                 <div className="mb-3 text-3xl">{item.icon}</div>
                 <h3 className="mb-2 text-lg font-bold">{item.title}</h3>
                 <p className="text-gray-600">{item.desc}</p>
