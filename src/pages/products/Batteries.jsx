@@ -55,7 +55,7 @@ const Batteries = () => {
 
       <ProductHero title="Car Batteries" />
 
-      <div className="flex-1 px-6 py-12 mx-auto max-w-7xl">
+      <div className="flex-1 w-full px-4 py-10 mx-auto sm:px-6 sm:py-12 max-w-7xl">
         <OfferBanner />
 
         <ProductGrid

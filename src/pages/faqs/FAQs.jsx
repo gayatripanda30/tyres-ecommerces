@@ -76,12 +76,12 @@ const FAQs = () => {
 
       {/* Hero Section */}
       <div
-        className="relative flex items-center justify-center text-center bg-center bg-cover h-96"
+        className="relative flex items-center justify-center text-center bg-center bg-cover h-72 sm:h-96"
         style={{ backgroundImage: `url(${heroImg})` }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="relative z-10 px-6">
-          <h1 className="text-5xl font-black text-white md:text-6xl animate-slideInLeft">
+          <h1 className="text-4xl font-black text-white sm:text-5xl md:text-6xl animate-slideInLeft">
             Frequently Asked Questions
           </h1>
           <p className="mt-3 text-lg text-green-100 md:text-xl animate-slideInRight">
@@ -91,7 +91,7 @@ const FAQs = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 w-full max-w-4xl px-6 py-12 mx-auto">
+      <div className="flex-1 w-full max-w-4xl px-4 py-10 mx-auto sm:px-6 sm:py-12">
         {/* Search Bar */}
         <div className="mb-12">
           <div className="relative">
@@ -115,7 +115,7 @@ const FAQs = () => {
         <div className="space-y-12">
           {displayFAQs.map((category, catIdx) => (
             <div key={catIdx}>
-              <h2 className="pb-4 mb-6 text-3xl font-bold text-green-700 border-b-4 border-green-200">
+              <h2 className="pb-4 mb-6 text-2xl font-bold text-green-700 border-b-4 border-green-200 sm:text-3xl">
                 📌 {category.category}
               </h2>
 
@@ -131,13 +131,13 @@ const FAQs = () => {
                     >
                       <button
                         onClick={() => toggleFAQ(globalIdx)}
-                        className={`w-full flex items-center justify-between p-6 transition-all duration-300 ${
+                        className={`w-full flex items-center justify-between p-4 sm:p-6 transition-all duration-300 ${
                           isExpanded
                             ? "bg-green-600 text-white"
                             : "bg-gray-50 text-gray-800 hover:bg-gray-100"
                         }`}
                       >
-                        <span className="text-lg font-bold text-left">{faq.q}</span>
+                        <span className="text-base font-bold text-left sm:text-lg">{faq.q}</span>
                         <HiChevronDown
                           size={24}
                           className={`flex-shrink-0 ml-4 transition-transform duration-300 ${
@@ -172,7 +172,7 @@ const FAQs = () => {
         )}
 
         {/* Still Have Questions Section */}
-        <div className="p-8 mt-12 border-2 border-blue-300 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl">
+        <div className="p-5 mt-12 border-2 border-blue-300 sm:p-8 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl">
           <h3 className="mb-4 text-2xl font-bold text-blue-800">Still have questions?</h3>
           <p className="mb-6 text-gray-700">
             Didn't find the answer you're looking for? Our customer support team is here to help!

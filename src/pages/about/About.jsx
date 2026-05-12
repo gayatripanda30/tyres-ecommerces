@@ -54,7 +54,7 @@ const About = () => {
 
       {/* 🔥 HERO SECTION */}
       <div
-        className="relative flex items-center justify-center h-[70vh] text-center text-white"
+        className="relative flex items-center justify-center min-h-[440px] text-center text-white sm:min-h-[560px]"
         style={{
           backgroundImage: `url(${heroImg})`,
           backgroundSize: "cover",
@@ -63,7 +63,7 @@ const About = () => {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80"></div>
         <div className="relative z-10 px-6" data-aos="fade-up">
-          <h1 className="mb-4 text-4xl font-bold md:text-6xl">
+          <h1 className="mb-4 text-4xl font-bold sm:text-5xl md:text-6xl">
             About TyreShop
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-gray-300">
@@ -73,7 +73,7 @@ const About = () => {
       </div>
 
       {/* 🔥 TITLE */}
-      <h2 className="mt-20 text-4xl font-bold text-center" data-aos="fade-up">
+      <h2 className="px-4 mt-16 text-3xl font-bold text-center sm:mt-20 sm:text-4xl" data-aos="fade-up">
         Our Commitment to Excellence
       </h2>
 
@@ -81,7 +81,7 @@ const About = () => {
       {sections.map((item, index) => (
         <div
           key={index}
-          className="max-w-6xl px-6 mx-auto my-10"
+          className="max-w-6xl px-4 mx-auto my-10 sm:px-6"
           data-aos={item.reverse ? "fade-left" : "fade-right"}
         >
           <div className="grid items-center gap-10 md:grid-cols-2">
@@ -103,7 +103,7 @@ const About = () => {
                   <img
                     src={item.img}
                     alt={item.title}
-                    className="w-full h-[300px] md:h-[350px] object-cover rounded-[30px] transition duration-500 hover:scale-105"
+                    className="w-full h-[240px] sm:h-[300px] md:h-[350px] object-cover rounded-[30px] transition duration-500 hover:scale-105"
                   />
                 </div>
               </div>

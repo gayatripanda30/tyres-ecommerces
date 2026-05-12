@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./components/context/CartContext";
+import ScrollToTop from "./components/layout/ScrollToTop";
 
 import Home from "./pages/home/Home";
 import About from "./pages/about/About";
@@ -33,6 +34,7 @@ import Accessories from "./pages/products/Accessories";
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <CartProvider>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -1,8 +1,12 @@
 import { useState } from "react";
+import * as XLSX from "xlsx";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";
 import image2 from "../../assets/image2.png";
+
+const CONTACT_STORAGE_KEY = "contactMessages";
+const CONTACT_FILE_NAME = "contact_messages.xlsx";
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -27,40 +31,60 @@ const Contact = () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  // ✅ CONNECTED TO BACKEND
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (!form.name.trim()) {
-    alert("Please enter your name");
-    return;
-  }
-
-  if (!isValidEmail(form.email)) {
-    alert("Please enter a valid email");
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:5000/save-message", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(form),
-});
-
-    const data = await response.json();
-
-    if (data.success) {
-      alert("✅ Message saved successfully!");
-      setForm({ name: "", email: "", message: "" });
+  const getSavedMessages = () => {
+    try {
+      return JSON.parse(localStorage.getItem(CONTACT_STORAGE_KEY)) || [];
+    } catch (error) {
+      console.error("Unable to read saved contact messages:", error);
+      return [];
     }
-  } catch (error) {
-  console.error(error);
-  alert("❌ Server not running. Please start backend!");
-}
-};
+  };
+
+  const saveMessagesToExcel = (messages) => {
+    const worksheet = XLSX.utils.json_to_sheet(messages);
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Messages");
+    XLSX.writeFile(workbook, CONTACT_FILE_NAME);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!form.name.trim()) {
+      alert("Please enter your name");
+      return;
+    }
+
+    if (!isValidEmail(form.email)) {
+      alert("Please enter a valid email");
+      return;
+    }
+
+    if (!form.message.trim()) {
+      alert("Please enter your message");
+      return;
+    }
+
+    try {
+      const newMessage = {
+        Name: form.name.trim(),
+        Email: form.email.trim(),
+        Message: form.message.trim(),
+        Date: new Date().toLocaleString(),
+      };
+      const updatedMessages = [...getSavedMessages(), newMessage];
+
+      localStorage.setItem(CONTACT_STORAGE_KEY, JSON.stringify(updatedMessages));
+      saveMessagesToExcel(updatedMessages);
+
+      alert("Message saved in Excel file successfully!");
+      setForm({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Unable to save contact message:", error);
+      alert("Unable to create Excel file. Please try again.");
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -125,7 +149,7 @@ const handleSubmit = async (e) => {
               />
 
               <button className="w-[40%] py-3 font-semibold text-white bg-blue-900 rounded-full hover:bg-blue-800">
-                Send Message
+                Save Excel
               </button>
 
             </form>

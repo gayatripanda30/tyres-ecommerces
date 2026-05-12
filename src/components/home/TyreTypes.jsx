@@ -38,7 +38,23 @@ const tyres = [
 const TyreTypes = () => {
   const [index, setIndex] = useState(0);
   const navigate = useNavigate(); // ✅ ADDED
-  const cardsToShow = 4;
+  const [cardsToShow, setCardsToShow] = useState(4);
+
+  useEffect(() => {
+    const updateCardsToShow = () => {
+      if (window.innerWidth < 640) {
+        setCardsToShow(1);
+      } else if (window.innerWidth < 1024) {
+        setCardsToShow(2);
+      } else {
+        setCardsToShow(4);
+      }
+    };
+
+    updateCardsToShow();
+    window.addEventListener("resize", updateCardsToShow);
+    return () => window.removeEventListener("resize", updateCardsToShow);
+  }, []);
 
   const nextSlide = () => {
     setIndex((prev) =>
@@ -54,13 +70,15 @@ const TyreTypes = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      nextSlide();
+      setIndex((prev) =>
+        prev + 1 > tyres.length - cardsToShow ? 0 : prev + 1
+      );
     }, 3000);
     return () => clearInterval(interval);
-  }, [index]);
+  }, [cardsToShow, index]);
 
   return (
-    <section className="px-6 bg-gray-100 py-14">
+    <section className="px-4 bg-gray-100 sm:px-6 py-14">
       <style>{`
         @keyframes fadeInDown {
           from { opacity: 0; transform: translateY(-20px); }
@@ -74,7 +92,7 @@ const TyreTypes = () => {
         .scale-in { animation: scaleIn 0.6s ease-out; }
       `}</style>
 
-      <h2 className="mb-12 text-4xl font-bold text-center text-gray-800 fade-in-down">
+      <h2 className="mb-10 text-3xl font-bold text-center text-gray-800 sm:text-4xl fade-in-down">
         Our Popular 4x4 Tyres
       </h2>
 
@@ -88,8 +106,11 @@ const TyreTypes = () => {
           {tyres.map((tyre, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-1/4 p-3 scale-in"
-              style={{ animationDelay: `${i * 0.1}s` }}
+              className="flex-shrink-0 p-3 scale-in"
+              style={{
+                width: `${100 / cardsToShow}%`,
+                animationDelay: `${i * 0.1}s`,
+              }}
             >
               {/* ✅ CLICK ADDED HERE */}
               <div

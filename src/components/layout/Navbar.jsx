@@ -54,11 +54,11 @@ const Navbar = () => {
       {/* ✅ FIXED NAVBAR */}
       <div className="fixed top-0 left-0 w-full z-[999] bg-white shadow overflow-visible">
 
-        <div className="flex items-center justify-between px-6 py-4 overflow-visible md:px-10">
+        <div className="flex items-center justify-between gap-3 px-4 py-4 overflow-visible sm:px-6 md:px-10">
 
           {/* Logo */}
           <h1
-            className="text-xl font-bold cursor-pointer"
+            className="text-xl font-bold tracking-wide cursor-pointer sm:text-2xl"
             onClick={() => navigate("/")}
           >
             TYROOLA
@@ -203,7 +203,7 @@ const Navbar = () => {
             </div>
 
             {/* CART */}
-            <Link to="/cart" className="font-semibold hover:text-yellow-600">
+            <Link to="/cart" className="text-sm font-semibold whitespace-nowrap sm:text-base hover:text-yellow-600">
               Cart ({cart.length})
             </Link>
 
@@ -219,12 +219,16 @@ const Navbar = () => {
 
         {/* MOBILE MENU */}
         {mobileMenu && (
-          <div className="px-6 pb-4 bg-white md:hidden">
-            <Link to="/" className="block py-2 font-semibold">Home</Link>
-            <Link to="/products" className="block py-2 font-semibold">Products</Link>
-            <Link to="/services" className="block py-2 font-semibold">Services</Link>
-            <Link to="/special-offers" className="block py-2 font-semibold">Special Offers</Link>
-            <Link to="/contact" className="block py-2 font-semibold">Contact</Link>
+          <div className="px-4 pb-4 bg-white border-t md:hidden">
+            <Link onClick={() => setMobileMenu(false)} to="/" className="block py-2 font-semibold">Home</Link>
+            <Link onClick={() => setMobileMenu(false)} to="/products" className="block py-2 font-semibold">Products</Link>
+            <Link onClick={() => setMobileMenu(false)} to="/tyres" className="block py-2 pl-4 text-sm text-gray-700">Tyres</Link>
+            <Link onClick={() => setMobileMenu(false)} to="/products/batteries" className="block py-2 pl-4 text-sm text-gray-700">Batteries</Link>
+            <Link onClick={() => setMobileMenu(false)} to="/products/lubricants" className="block py-2 pl-4 text-sm text-gray-700">Lubricants</Link>
+            <Link onClick={() => setMobileMenu(false)} to="/products/accessories" className="block py-2 pl-4 text-sm text-gray-700">Accessories</Link>
+            <Link onClick={() => setMobileMenu(false)} to="/services" className="block py-2 font-semibold">Services</Link>
+            <Link onClick={() => setMobileMenu(false)} to="/special-offers" className="block py-2 font-semibold">Special Offers</Link>
+            <Link onClick={() => setMobileMenu(false)} to="/contact" className="block py-2 font-semibold">Contact</Link>
           </div>
         )}
       </div>

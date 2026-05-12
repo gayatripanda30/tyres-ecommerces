@@ -71,10 +71,10 @@ const Accessories = () => {
 
       <ProductHero title="Accessories" />
 
-      <div className="px-6 py-12 mx-auto max-w-7xl">
+      <div className="w-full px-4 py-10 mx-auto sm:px-6 sm:py-12 max-w-7xl">
         <OfferBanner />
 
-        <div className="grid gap-8 md:grid-cols-4 lg:grid-cols-5">
+        <div className="grid gap-6 lg:grid-cols-[260px_1fr] lg:gap-8">
           <FilterSidebar
             minPrice={minPrice}
             maxPrice={maxPrice}

@@ -68,7 +68,7 @@ const Products = () => {
 
       {/* 🔥 HERO SECTION (INCREASED HEIGHT) */}
       <section
-        className="relative h-[85vh] flex items-center justify-center text-white"
+        className="relative flex min-h-[520px] items-center justify-center text-white sm:min-h-[620px]"
         style={{
           backgroundImage: `url(${heroImg})`,
           backgroundSize: "cover",
@@ -79,7 +79,7 @@ const Products = () => {
         <div className="absolute inset-0 bg-black/70"></div>
 
         <div className="relative z-10 max-w-4xl px-4 text-center" data-aos="zoom-in">
-          <h1 className="mb-6 text-5xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mb-6 text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
             Premium Auto Products
           </h1>
           <p className="text-lg text-gray-200 md:text-xl">
@@ -99,7 +99,7 @@ const Products = () => {
       {/* 🔥 PRODUCTS GRID (3D CARD EFFECT) */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl px-4 mx-auto">
-          <h2 className="mb-12 text-4xl font-bold text-center">Shop by Category</h2>
+          <h2 className="mb-10 text-3xl font-bold text-center sm:text-4xl">Shop by Category</h2>
 
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             {products.map((product, index) => (
@@ -140,7 +140,7 @@ const Products = () => {
                     ))}
                   </ul>
 
-                  <button className="w-[80%] py-2 font-semibold text-white transition bg-green-700 rounded-full hover:bg-green-800 ml-5">
+                  <button className="w-full px-4 py-2 font-semibold text-white transition bg-green-700 rounded-full hover:bg-green-800">
                     Shop Now →
                   </button>
                 </div>
@@ -153,9 +153,9 @@ const Products = () => {
       {/* 🔥 WHY CHOOSE US (3D GLASS CARDS) */}
       <section className="py-20 bg-gradient-to-br from-gray-200 to-gray-300">
         <div className="max-w-6xl px-4 mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-14">Why Choose Us ?</h2>
+          <h2 className="text-3xl font-bold text-center sm:text-4xl mb-14">Why Choose Us ?</h2>
 
-          <div className="grid gap-10 md:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: <HiSparkles size={40} />, title: "Premium Quality", desc: "Certified products only" },
               { icon: <HiCheckCircle size={40} />, title: "Best Prices", desc: "Affordable & competitive" },

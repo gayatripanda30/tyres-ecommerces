@@ -6,7 +6,7 @@ import HeroSearch from "../../components/home/HeroSearch";
 import Offers from "../../components/home/Offers";
 import Testimonials from "../../components/home/Testimonials";
 import Footer from "../../components/layout/Footer";
-import BrandPartners from "../../components/home/BrandPartners";
+import BrandPartners from "../../components/home/TyreBrandPartners";
 import TyreTypes from "../../components/home/TyreTypes";
 import FeaturedCollection from "../../components/home/FeaturedCollection";
 import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";

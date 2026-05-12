@@ -78,7 +78,7 @@ const CheckoutPage = () => {
     <div className="min-h-screen bg-gray-100">
       <Navbar />
 
-      <div className="grid gap-8 px-4 py-10 mx-auto max-w-7xl lg:grid-cols-3">
+      <div className="grid gap-6 px-4 py-8 mx-auto sm:py-10 max-w-7xl lg:grid-cols-3 lg:gap-8">
 
         {/* LEFT */}
         <div className="space-y-6 lg:col-span-2">
@@ -129,7 +129,7 @@ const CheckoutPage = () => {
                     onChange={(e)=>setCard({...card,name:e.target.value})}/>
                   <input className="input" placeholder="Card Number"
                     onChange={(e)=>setCard({...card,number:e.target.value})}/>
-                  <div className="flex gap-3">
+                  <div className="flex flex-col gap-3 sm:flex-row">
                     <input className="input" placeholder="MM/YY"
                       onChange={(e)=>setCard({...card,expiry:e.target.value})}/>
                     <input className="input" placeholder="CVV"
@@ -187,7 +187,7 @@ const CheckoutPage = () => {
           {/* BUTTON */}
           <button
             onClick={placeOrder}
-            className="w-[40%] py-3 mt-6 font-bold text-white bg-blue-900 rounded-full hover:bg-blue-800"
+            className="w-full px-6 py-3 mt-6 font-bold text-white bg-blue-900 rounded-full sm:w-auto hover:bg-blue-800"
           >
             Place Order
           </button>

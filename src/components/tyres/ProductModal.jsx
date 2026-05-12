@@ -11,9 +11,7 @@ const ProductModal = ({
   quantity,
   setQuantity,
   paymentMethod,
-  setPaymentMethod,
   deliveryOption,
-  setDeliveryOption,
   onClose,
   onAddToCart,
   onBuyNow,
@@ -27,12 +25,9 @@ const ProductModal = ({
   const basePrice = selectedTyre.price * (1 - selectedTyre.discount / 100);
 
   let paymentDiscount = 0;
-  let cashback = 0;
 
   if (paymentMethod === "upi") {
     paymentDiscount = basePrice * 0.05;
-  } else if (paymentMethod === "credit-card") {
-    cashback = basePrice * 0.1;
   } else if (paymentMethod === "emi") {
     paymentDiscount = basePrice * 0.07;
   }
@@ -67,14 +62,14 @@ const ProductModal = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70">
-      <div className="bg-white rounded-3xl w-full max-w-5xl max-h-[95vh] overflow-y-auto shadow-2xl relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 bg-black bg-opacity-70 sm:p-4">
+      <div className="relative w-full max-w-5xl overflow-y-auto bg-white shadow-2xl rounded-2xl sm:rounded-3xl max-h-[95vh]">
 
         {/* HEADER */}
-        <div className="sticky top-0 z-20 flex items-center justify-between p-6 border-b bg-gradient-to-r from-green-50 to-blue-50">
-          <div>
+        <div className="sticky top-0 z-20 flex items-start justify-between gap-3 p-4 border-b sm:p-6 bg-gradient-to-r from-green-50 to-blue-50">
+          <div className="min-w-0">
             <p className="text-sm font-semibold text-green-600 uppercase">Product Details</p>
-            <h2 className="text-2xl font-bold">{selectedTyre.name}</h2>
+            <h2 className="text-lg font-bold break-words sm:text-2xl">{selectedTyre.name}</h2>
 
             {/* ⭐ NEW: Rating */}
             <div className="flex items-center gap-1 mt-2 text-yellow-500">
@@ -92,7 +87,7 @@ const ProductModal = ({
           </button>
         </div>
 
-        <div className="grid gap-8 p-8 md:grid-cols-2">
+        <div className="grid gap-6 p-4 sm:p-6 md:grid-cols-2 lg:p-8">
 
           {/* LEFT */}
           <div>
@@ -102,8 +97,8 @@ const ProductModal = ({
               </p>
             )}
 
-            <div className="flex items-center justify-center p-10 mb-6 bg-gray-100 rounded-2xl">
-              <img src={selectedTyre.image} className="h-72" />
+            <div className="flex items-center justify-center p-5 mb-6 bg-gray-100 sm:p-10 rounded-2xl">
+              <img src={selectedTyre.image} className="object-contain w-full h-52 sm:h-72" />
             </div>
 
             {/* ✅ NEW: PRODUCT DETAILS */}
@@ -124,7 +119,7 @@ const ProductModal = ({
           <div className="flex flex-col">
 
             <div className="p-6 mb-6 bg-green-50 rounded-2xl">
-              <h2 className="text-4xl font-bold text-green-600">₹{totalPrice}</h2>
+              <h2 className="text-3xl font-bold text-green-600 sm:text-4xl">₹{totalPrice}</h2>
               <p className="text-sm text-gray-500">
                 Base: ₹{basePrice.toFixed(0)} × {quantity}
               </p>
@@ -140,14 +135,14 @@ const ProductModal = ({
 
             <div className="mb-6">
               <label className="text-sm font-bold">🎟 Apply Coupon</label>
-              <div className="flex gap-2 mt-2">
+              <div className="flex flex-col gap-2 mt-2 sm:flex-row">
                 <input
                   value={coupon}
                   onChange={(e) => setCoupon(e.target.value)}
                   className="flex-1 p-2 border rounded-lg"
                   placeholder="Enter code"
                 />
-                <button onClick={applyCoupon} className="px-4 text-white bg-blue-900 rounded-full">
+                <button onClick={applyCoupon} className="px-4 py-2 text-white bg-blue-900 rounded-full">
                   Apply
                 </button>
               </div>
@@ -165,17 +160,17 @@ const ProductModal = ({
            <div className="space-y-3">
 
   {/* ✅ ROW BUTTONS */}
-  <div className="flex gap-3">
+  <div className="flex flex-col gap-3 sm:flex-row">
     <button
       onClick={() => onAddToCart(selectedTyre)}
-      className="w-1/2 py-3 font-semibold text-white transition bg-blue-900 rounded-full hover:bg-blue-700"
+      className="w-full py-3 font-semibold text-white transition bg-blue-900 rounded-full sm:w-1/2 hover:bg-blue-700"
     >
       Add to Cart
     </button>
 
     <button
       onClick={handleBuyNow}
-      className="w-1/2 py-3 font-semibold text-black transition bg-gray-300 rounded-full hover:bg-gray-300"
+      className="w-full py-3 font-semibold text-black transition bg-gray-300 rounded-full sm:w-1/2 hover:bg-gray-300"
     >
       Buy Now
     </button>
@@ -184,7 +179,7 @@ const ProductModal = ({
   {/* ✅ CONTINUE SHOPPING */}
   <button
     onClick={onClose}
-    className="w-[50%] ml-28 py-3 font-semibold text-black transition border rounded-full hover:bg-gray-200"
+    className="w-full py-3 font-semibold text-black transition border rounded-full sm:w-auto sm:px-8 hover:bg-gray-200"
   >
     Continue Shopping
   </button>
@@ -213,7 +208,7 @@ const ProductModal = ({
               .slice(0, 4);
 
             return (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {relatedProducts.map(item => (
                   <div
                     key={item.id}

@@ -35,8 +35,8 @@ const Footer = () => {
         className="relative px-6 py-16 bg-center bg-cover"
         style={{ backgroundImage: `url(${footerBg})` }}
       >
-        <div className="max-w-xl p-8 mx-auto shadow-lg rounded-xl bg-black/70 backdrop-blur-md">
-          <h2 className="mb-2 text-2xl font-bold">Subscribe to Our Newsletter</h2>
+        <div className="max-w-xl p-5 mx-auto shadow-lg sm:p-8 rounded-xl bg-black/70 backdrop-blur-md">
+          <h2 className="mb-2 text-xl font-bold sm:text-2xl">Subscribe to Our Newsletter</h2>
           <p className="mb-5 text-gray-300">
             Get exclusive offers, updates, and latest deals directly in your inbox.
           </p>
@@ -53,7 +53,7 @@ const Footer = () => {
             />
             <button
               onClick={handleSubscribe}
-              className={`px-6 py-3 rounded font-medium transition ${
+              className={`w-full sm:w-auto px-6 py-3 rounded font-medium transition ${
                 status === "success" ? "bg-green-600" : "bg-green-500 hover:bg-green-600"
               }`}
               disabled={status === "loading"}
@@ -80,7 +80,7 @@ const Footer = () => {
       </div>
 
       {/* 🔹 Footer Links */}
-      <div className="grid grid-cols-1 gap-10 px-8 py-12 text-sm md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-10 px-5 py-12 text-sm sm:grid-cols-2 lg:grid-cols-4 sm:px-8">
         {/* Company */}
         <div>
           <h3 className="mb-4 font-semibold tracking-wide text-green-400">COMPANY</h3>
@@ -124,7 +124,7 @@ const Footer = () => {
         {/* Payment Methods */}
         <div>
           <h3 className="mb-4 font-semibold tracking-wide text-green-400">PAYMENT METHODS</h3>
-          <div className="flex items-center gap-3 ">
+          <div className="flex flex-wrap items-center gap-3">
             <img src={visaLogo} alt="Visa" className="object-contain h-12" />
 <img src={mastercardLogo} alt="MasterCard" className="object-contain h-12" />
           </div>

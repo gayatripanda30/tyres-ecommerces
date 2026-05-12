@@ -142,12 +142,6 @@ import hero2 from "../../assets/image16.jpg";
 import hero3 from "../../assets/image14.jpg";
 
 const HeroSearch = () => {
-  const [filters, setFilters] = useState({
-    width: "",
-    height: "",
-    rim: "",
-  });
-
   const images = [hero1, hero2, hero3];
   const [current, setCurrent] = useState(0);
 
@@ -156,10 +150,10 @@ const HeroSearch = () => {
       setCurrent((prev) => (prev + 1) % images.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]);
 
   return (
-    <div className="relative w-full h-[420px] overflow-hidden">
+    <div className="relative w-full h-[520px] overflow-hidden sm:h-[460px] lg:h-[420px]">
 
       {/* Background Images */}
       {images.map((img, index) => (
@@ -177,11 +171,11 @@ const HeroSearch = () => {
       <div className="absolute inset-0 bg-black/60"></div>
 
       {/* Content */}
-      <div className="absolute inset-0 flex items-center px-6 md:px-16">
+      <div className="absolute inset-0 flex items-center px-4 pb-20 sm:px-6 md:px-16">
         <div className="max-w-xl space-y-4 text-white">
 
           {/* Heading */}
-          <h1 className="text-2xl font-bold leading-snug md:text-4xl lg:text-5xl">
+          <h1 className="text-3xl font-bold leading-snug sm:text-4xl lg:text-5xl">
             Buy Premium Tyres Online in India
             <br />
             <span className="text-yellow-400">
@@ -199,7 +193,7 @@ const HeroSearch = () => {
       </div>
 
       {/* Bottom Steps */}
-      <div className="absolute bottom-0 left-1/2 w-[80%] md:w-[75%] transform -translate-x-1/2 flex flex-wrap justify-between gap-2 px-3 py-3 text-[20px] text-center text-white bg-yellow-600 md:text-xs rounded-t-lg h-12">
+      <div className="absolute bottom-0 left-1/2 w-[94%] md:w-[75%] transform -translate-x-1/2 grid grid-cols-2 sm:grid-cols-4 gap-2 px-3 py-3 text-[10px] sm:text-xs text-center text-white bg-yellow-600 rounded-t-lg">
         <span>1. SELECT TYRE SIZE</span>
         <span>2. CHOOSE BRAND</span>
         <span>3. BOOK FITMENT</span>
@@ -207,7 +201,7 @@ const HeroSearch = () => {
       </div>
 
       {/* Dots */}
-      <div className="absolute flex gap-2 -translate-x-1/2 bottom-16 left-1/2">
+      <div className="absolute flex gap-2 -translate-x-1/2 bottom-20 sm:bottom-16 left-1/2">
         {images.map((_, i) => (
           <div
             key={i}

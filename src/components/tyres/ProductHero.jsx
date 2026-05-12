@@ -35,7 +35,7 @@ const ProductHero = () => {
   }, []);
 
   return (
-    <div className="relative h-[70vh] w-full overflow-hidden">
+    <div className="relative w-full min-h-[440px] overflow-hidden sm:min-h-[560px]">
 
       {/* Background Images */}
       {slides.map((slide, index) => (
