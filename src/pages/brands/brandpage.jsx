@@ -16,15 +16,6 @@ import ProductHero from "../../components/brands/ProductHero";
 // Data
 import { allTyres } from "../../data/allTyres";
 
-// Brand Images
-import brand1 from "../../assets/brand1.png";
-import brand2 from "../../assets/brand2.png";
-import brand3 from "../../assets/brand3.png";
-import brand4 from "../../assets/brand4.png";
-import brand5 from "../../assets/brand5.png";
-import brand6 from "../../assets/brand6.png";
-import brand7 from "../../assets/brand7.png";
-import heroImg from "../../assets/image.png";
 import bg1 from "../../assets/image12.jpg";
 
 const BrandPage = () => {
@@ -44,24 +35,11 @@ const BrandPage = () => {
     bridgestone: "Bridgestone",
   };
 
-  const brandImageMap = {
-    mrf: brand1,
-    apollo: brand2,
-    ceat: brand3,
-    jk: brand4,
-    tvs: brand5,
-    michelin: brand6,
-    pirelli: brand7,
-    bridgestone: heroImg,
-  };
-
   const pageBrandTitle = brandTitleMap[normalizedBrand] ||
     normalizedBrand
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-
-  const brandImage = brandImageMap[normalizedBrand] || heroImg;
 
   const [maxPrice, setMaxPrice] = useState(1200);
   const [minPrice, setMinPrice] = useState(100);
@@ -108,8 +86,8 @@ const BrandPage = () => {
       />
 
       {/* Main Content */}
-      <div className="px-6 py-12 mx-auto max-w-7xl">
-        <div className="grid gap-8 md:grid-cols-4 lg:grid-cols-5">
+      <div className="w-full px-4 py-10 mx-auto sm:px-6 sm:py-12 max-w-7xl">
+        <div className="grid gap-6 lg:grid-cols-[260px_1fr] lg:gap-8">
           <FilterSidebar
             minPrice={minPrice}
             maxPrice={maxPrice}
@@ -120,7 +98,7 @@ const BrandPage = () => {
             tyreTypes={tyreTypes}
           />
 
-          <div className="md:col-span-3 lg:col-span-4">
+          <div className="min-w-0">
             <ProductToolbar
               filteredTyresCount={filteredTyres.length}
               sortBy={sortBy}

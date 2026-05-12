@@ -33,10 +33,10 @@ const CartPage = () => {
         <div className="mx-auto max-w-7xl">
 
           {/* HERO */}
-          <section className="overflow-hidden rounded-[36px] border border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-8 text-white shadow-2xl">
+          <section className="overflow-hidden rounded-2xl sm:rounded-[36px] border border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-5 sm:p-8 text-white shadow-2xl">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">
-                <h1 className="mt-4 text-4xl font-bold lg:text-5xl">
+                <h1 className="mt-4 text-3xl font-bold sm:text-4xl lg:text-5xl">
                   Your Cart is Ready for Checkout
                 </h1>
                 <p className="mt-4 text-slate-300">
@@ -68,17 +68,17 @@ const CartPage = () => {
               ) : (
                 cart.map((item, index) => (
                   <div key={index} className="p-6 bg-white shadow rounded-2xl">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center min-w-0 gap-4">
                         <img
                           src={item.image}
                           alt=""
                           className="object-contain w-20 h-20"
                         />
 
-                        <div>
-                          <h3 className="font-bold">{item.name}</h3>
+                        <div className="min-w-0">
+                          <h3 className="font-bold break-words">{item.name}</h3>
                           <p className="text-sm text-gray-500">{item.brand}</p>
 
                           {/* ✅ SHOW QUANTITY */}
@@ -88,7 +88,7 @@ const CartPage = () => {
                         </div>
                       </div>
 
-                      <div className="text-right">
+                      <div className="text-left sm:text-right">
                         <p className="text-lg font-bold">
                           ₹{(item.price * (item.quantity || 1)).toFixed(0)}
                         </p>

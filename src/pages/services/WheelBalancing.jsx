@@ -62,7 +62,7 @@ const WheelBalancing = () => {
                       <img
                         src={serviceImg}
                         alt="Wheel Alignment"
-                        className="object-cover w-full h-[400px] transition duration-500 group-hover:scale-105"
+                        className="object-cover w-full h-64 sm:h-80 lg:h-[400px] transition duration-500 group-hover:scale-105"
                       />
       
                     </div>
@@ -118,7 +118,7 @@ const WheelBalancing = () => {
               { icon: "👀", title: "Uneven wear patterns", desc: "On tyre surface" },
               { icon: "⚡", title: "Handling feels unstable", desc: "Especially during turns" },
             ].map((item, idx) => (
-              <div key={idx} className="p-6 transition bg-gray-100 border-l-4 border-blue-900 rounded-xl hover:shadow-md w-[70%] mx-auto">
+              <div key={idx} className="w-full p-6 mx-auto transition bg-gray-100 border-l-4 border-blue-900 rounded-xl hover:shadow-md sm:w-[85%] lg:w-[70%]">
                 <div className="mb-3 text-3xl">{item.icon}</div>
                 <h3 className="mb-2 text-lg font-bold">{item.title}</h3>
                 <p className="text-gray-600">{item.desc}</p>

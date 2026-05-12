@@ -47,7 +47,7 @@ const Batteries = () => {
       <Navbar />
 
       {/* 🔙 BACK */}
-      <div className="px-6 py-3 bg-white border-b">
+      <div className="px-4 py-3 bg-white border-b sm:px-6">
         <Link to="/products" className="flex items-center gap-2 text-blue-600">
           <HiArrowLeft /> Back to Products
         </Link>
@@ -55,7 +55,7 @@ const Batteries = () => {
 
       <ProductHero title="Car Batteries" />
 
-      <div className="flex-1 px-6 py-12 mx-auto max-w-7xl">
+      <div className="flex-1 w-full px-4 py-10 mx-auto sm:px-6 sm:py-12 max-w-7xl">
         <OfferBanner />
 
         <ProductGrid

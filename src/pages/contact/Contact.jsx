@@ -1,8 +1,11 @@
 import { useState } from "react";
+import * as XLSX from "xlsx";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import WhatsAppChatbot from "../../components/layout/WhatsAppChatbot";
 import image2 from "../../assets/image2.png";
+
+const CONTACT_MESSAGES_KEY = "contactMessages";
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -27,48 +30,54 @@ const Contact = () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  // ✅ CONNECTED TO BACKEND
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const downloadMessagesExcel = (messages) => {
+    const worksheet = XLSX.utils.json_to_sheet(messages);
+    const workbook = XLSX.utils.book_new();
 
-  if (!form.name.trim()) {
-    alert("Please enter your name");
-    return;
-  }
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Contact Messages");
+    XLSX.writeFile(workbook, "contact-messages.xlsx");
+  };
 
-  if (!isValidEmail(form.email)) {
-    alert("Please enter a valid email");
-    return;
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  try {
-    const response = await fetch("http://localhost:5000/save-message", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(form),
-});
-
-    const data = await response.json();
-
-    if (data.success) {
-      alert("✅ Message saved successfully!");
-      setForm({ name: "", email: "", message: "" });
+    if (!form.name.trim()) {
+      alert("Please enter your name");
+      return;
     }
-  } catch (error) {
-  console.error(error);
-  alert("❌ Server not running. Please start backend!");
-}
-};
+
+    if (!isValidEmail(form.email)) {
+      alert("Please enter a valid email");
+      return;
+    }
+
+    const savedMessages = JSON.parse(
+      localStorage.getItem(CONTACT_MESSAGES_KEY) || "[]"
+    );
+
+    const newMessage = {
+      Name: form.name.trim(),
+      Email: form.email.trim(),
+      Message: form.message.trim(),
+      Date: new Date().toLocaleString(),
+    };
+
+    const updatedMessages = [...savedMessages, newMessage];
+
+    localStorage.setItem(CONTACT_MESSAGES_KEY, JSON.stringify(updatedMessages));
+    downloadMessagesExcel(updatedMessages);
+
+    alert("Message saved in frontend and Excel file downloaded!");
+    setForm({ name: "", email: "", message: "" });
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
 
-      {/* 🔥 HERO SECTION */}
+      
       <div
-        className="relative py-20 text-white"
+        className="relative py-16 text-white sm:py-20"
         style={{
           backgroundImage: `url(${image2})`,
           backgroundSize: "cover",
@@ -77,9 +86,9 @@ const handleSubmit = async (e) => {
       >
         <div className="absolute inset-0 bg-black/60"></div>
 
-        <div className="relative z-10 flex justify-end max-w-6xl px-4 mx-auto">
-          <div className="max-w-md p-6 text-right backdrop-blur-md rounded-xl">
-            <h1 className="text-4xl font-bold">Contact Us</h1>
+        <div className="relative z-10 flex max-w-6xl px-4 mx-auto sm:justify-end">
+          <div className="w-full max-w-md p-5 text-left sm:p-6 sm:text-right backdrop-blur-md rounded-xl">
+            <h1 className="text-3xl font-bold sm:text-4xl">Contact Us</h1>
             <p className="mt-2 text-gray-200">
               We are here to help you with your tyre needs
             </p>
@@ -87,13 +96,13 @@ const handleSubmit = async (e) => {
         </div>
       </div>
 
-      {/* ✅ MAIN CONTENT */}
-      <div className="flex-grow px-6 py-12 bg-gray-100">
+    
+      <div className="flex-grow px-4 py-10 bg-gray-100 sm:px-6 sm:py-12">
         <div className="grid max-w-6xl gap-10 mx-auto md:grid-cols-2">
 
-          {/* FORM */}
-          <div className="p-8 bg-white shadow-lg rounded-2xl">
-            <h2 className="mb-6 text-2xl font-bold">Send a Message</h2>
+         
+          <div className="p-5 bg-white shadow-lg sm:p-8 rounded-2xl">
+            <h2 className="mb-6 text-xl font-bold sm:text-2xl">Send a Message</h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
 
@@ -124,7 +133,7 @@ const handleSubmit = async (e) => {
                 className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-yellow-400"
               />
 
-              <button className="w-[40%] py-3 font-semibold text-white bg-blue-900 rounded-full hover:bg-blue-800">
+              <button className="w-full px-6 py-3 font-semibold text-white bg-blue-900 rounded-full sm:w-auto hover:bg-blue-800">
                 Send Message
               </button>
 
@@ -134,11 +143,11 @@ const handleSubmit = async (e) => {
           {/* CONTACT INFO */}
           <div className="space-y-6">
 
-            <div className="p-6 bg-white shadow-lg rounded-2xl">
+            <div className="p-5 break-words bg-white shadow-lg sm:p-6 rounded-2xl">
               <h3 className="mb-4 text-xl font-semibold">Contact Details</h3>
 
               <p className="mb-3">
-                📍 <strong>Address:</strong> Brahmapur, Odisha, India
+                📍 <strong>Address:</strong> Bhubaneswar, Odisha, India
               </p>
 
               <p className="mb-3">

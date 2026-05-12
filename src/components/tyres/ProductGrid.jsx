@@ -21,7 +21,7 @@ const ProductGrid = ({ filteredTyres = [], onSelectTyre, onAddToCart }) => {
 
       {/* ✅ TOAST */}
       {showToast && (
-        <div className="fixed z-[2000] px-6 py-3 text-black bg-gray-300 shadow-lg top-6 right-6 rounded-full">
+        <div className="fixed z-[2000] left-4 right-4 px-4 py-3 text-sm text-center text-black bg-gray-300 shadow-lg sm:left-auto sm:right-6 top-6 rounded-full">
           {toastMsg}
         </div>
       )}
@@ -29,7 +29,7 @@ const ProductGrid = ({ filteredTyres = [], onSelectTyre, onAddToCart }) => {
       {/* ✅ SAFETY CHECK */}
       {filteredTyres && filteredTyres.length > 0 ? (
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
 
           {filteredTyres.map((item) => {
 
@@ -50,14 +50,14 @@ const ProductGrid = ({ filteredTyres = [], onSelectTyre, onAddToCart }) => {
 
                 {/* Discount */}
                 {discount > 0 && (
-                  <div className="absolute px-3 py-1 text-xs font-bold text-white bg-gray-900 rounded-full top-3 right-3">
+                  <div className="absolute px-2 py-1 text-[10px] sm:text-xs font-bold text-white bg-gray-900 rounded-full top-3 right-3">
                     {discount}% OFF
                   </div>
                 )}
 
                 {/* Warranty */}
                 {item.warranty && (
-                  <div className="absolute text-center top-3 left-3">
+                  <div className="absolute max-w-[70px] text-center top-3 left-3">
                     <div className="text-xs font-bold text-black">
                       {item.warranty.split(" ")[0]}
                     </div>
@@ -103,14 +103,14 @@ const ProductGrid = ({ filteredTyres = [], onSelectTyre, onAddToCart }) => {
                   </div>
 
                   {/* Buttons */}
-                  <div className="flex gap-2 mt-4">
+                  <div className="flex flex-col gap-2 mt-4 sm:flex-row">
 
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         onSelectTyre(item);
                       }}
-                      className="flex-1 py-2 text-sm font-semibold text-white bg-blue-900 rounded-full hover:bg-gray-200 hover:text-black"
+                      className="flex-1 px-3 py-2 text-sm font-semibold text-white bg-blue-900 rounded-full hover:bg-gray-200 hover:text-black"
                     >
                       Buy Now
                     </button>
@@ -120,7 +120,7 @@ const ProductGrid = ({ filteredTyres = [], onSelectTyre, onAddToCart }) => {
                         e.stopPropagation();
                         handleAdd(item);
                       }}
-                      className="flex-1 py-2 text-sm font-semibold text-black bg-gray-200 rounded-full hover:bg-blue-900 hover:text-white"
+                      className="flex-1 px-3 py-2 text-sm font-semibold text-black bg-gray-200 rounded-full hover:bg-blue-900 hover:text-white"
                     >
                       Add Cart
                     </button>

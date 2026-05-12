@@ -1,11 +1,31 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import * as XLSX from "xlsx";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
+import { useCart } from "../../components/context/useCart";
+
+const ORDERS_STORAGE_KEY = "tyreonixOrders";
+
+const getItemQuantity = (item) => Number(item.quantity) || 1;
+const getItemPrice = (item) => Number(item.price) || 0;
+
+const maskPaymentReference = ({ paymentMethod, card, upi }) => {
+  if (paymentMethod === "card" && card.number) {
+    return `Card ending ${card.number.slice(-4)}`;
+  }
+
+  if (paymentMethod === "upi" && upi) {
+    return upi;
+  }
+
+  return "Cash on Delivery";
+};
 
 const CheckoutPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { clearCart } = useCart();
   const cartItems = location.state?.cartItems || [];
 
   const [paymentMethod, setPaymentMethod] = useState("cod");
@@ -39,7 +59,7 @@ const CheckoutPage = () => {
 
   // ✅ Price calc
   const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + getItemPrice(item) * getItemQuantity(item),
     0
   );
 
@@ -68,9 +88,96 @@ const CheckoutPage = () => {
     return true;
   };
 
+  const saveOrdersExcel = (updatedOrders) => {
+    const orderRows = updatedOrders.map((order) => ({
+      "Order ID": order.orderId,
+      Date: order.date,
+      "Customer Name": order.customer.name,
+      Phone: order.customer.phone,
+      Address: order.customer.address,
+      City: order.customer.city,
+      State: order.customer.state,
+      Pincode: order.customer.pincode,
+      "Payment Method": order.payment.method,
+      "Payment Reference": order.payment.reference,
+      "Total Items": order.items.length,
+      Subtotal: order.pricing.subtotal,
+      Delivery: order.pricing.delivery,
+      Total: order.pricing.total,
+    }));
+
+    const itemRows = updatedOrders.flatMap((order) =>
+      order.items.map((item) => ({
+        "Order ID": order.orderId,
+        Date: order.date,
+        "Customer Name": order.customer.name,
+        "Product Name": item.name,
+        Brand: item.brand || "",
+        Type: item.type || "",
+        Quantity: item.quantity,
+        "Unit Price": item.price,
+        Discount: item.discount,
+        "Line Total": item.lineTotal,
+      }))
+    );
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(
+      workbook,
+      XLSX.utils.json_to_sheet(orderRows),
+      "Orders"
+    );
+    XLSX.utils.book_append_sheet(
+      workbook,
+      XLSX.utils.json_to_sheet(itemRows),
+      "Order Items"
+    );
+    XLSX.writeFile(workbook, "tyreonix-orders.xlsx");
+  };
+
   const placeOrder = () => {
     if (!validate()) return;
-    alert("🎉 Order Placed Successfully!");
+
+    const orderId = `TYR-${Date.now()}`;
+    const savedOrders = JSON.parse(
+      localStorage.getItem(ORDERS_STORAGE_KEY) || "[]"
+    );
+
+    const order = {
+      orderId,
+      date: new Date().toLocaleString(),
+      customer: { ...address },
+      payment: {
+        method: paymentMethod.toUpperCase(),
+        reference: maskPaymentReference({ paymentMethod, card, upi }),
+      },
+      pricing: {
+        subtotal,
+        delivery,
+        total,
+      },
+      items: cartItems.map((item) => {
+        const quantity = getItemQuantity(item);
+        const price = getItemPrice(item);
+
+        return {
+          name: item.name || "Product",
+          brand: item.brand || "",
+          type: item.type || "",
+          quantity,
+          price,
+          discount: Number(item.discount) || 0,
+          lineTotal: price * quantity,
+        };
+      }),
+    };
+
+    const updatedOrders = [...savedOrders, order];
+    localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(updatedOrders));
+    saveOrdersExcel(updatedOrders);
+    clearCart?.();
+
+    alert("Order placed successfully! Order details saved to Excel.");
     navigate("/");
   };
 
@@ -78,7 +185,7 @@ const CheckoutPage = () => {
     <div className="min-h-screen bg-gray-100">
       <Navbar />
 
-      <div className="grid gap-8 px-4 py-10 mx-auto max-w-7xl lg:grid-cols-3">
+      <div className="grid gap-6 px-4 py-8 mx-auto sm:py-10 max-w-7xl lg:grid-cols-3 lg:gap-8">
 
         {/* LEFT */}
         <div className="space-y-6 lg:col-span-2">
@@ -110,7 +217,7 @@ const CheckoutPage = () => {
             <div className="space-y-3">
 
               {["cod","card","upi"].map((m)=>(
-                <div key={m}
+                  <div key={m}
                   onClick={()=>setPaymentMethod(m)}
                   className={`p-4 border rounded-lg cursor-pointer ${
                     paymentMethod===m
@@ -129,7 +236,7 @@ const CheckoutPage = () => {
                     onChange={(e)=>setCard({...card,name:e.target.value})}/>
                   <input className="input" placeholder="Card Number"
                     onChange={(e)=>setCard({...card,number:e.target.value})}/>
-                  <div className="flex gap-3">
+                  <div className="flex flex-col gap-3 sm:flex-row">
                     <input className="input" placeholder="MM/YY"
                       onChange={(e)=>setCard({...card,expiry:e.target.value})}/>
                     <input className="input" placeholder="CVV"
@@ -159,9 +266,11 @@ const CheckoutPage = () => {
           {/* ITEMS */}
           <div className="space-y-3 overflow-y-auto max-h-60">
             {cartItems.map((item, i)=>(
-              <div key={i} className="flex justify-between text-sm">
-                <span>{item.name}  {item.quantity}</span>
-                <span>₹{item.price * item.quantity}</span>
+              <div key={i} className="flex justify-between gap-3 text-sm">
+                <span className="break-words">
+                  {item.name} {getItemQuantity(item)}
+                </span>
+                <span>₹{getItemPrice(item) * getItemQuantity(item)}</span>
               </div>
             ))}
           </div>
@@ -187,7 +296,7 @@ const CheckoutPage = () => {
           {/* BUTTON */}
           <button
             onClick={placeOrder}
-            className="w-[40%] py-3 mt-6 font-bold text-white bg-blue-900 rounded-full hover:bg-blue-800"
+            className="w-full px-6 py-3 mt-6 font-bold text-white bg-blue-900 rounded-full sm:w-auto hover:bg-blue-800"
           >
             Place Order
           </button>

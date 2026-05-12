@@ -29,13 +29,13 @@ const FilterSidebar = ({
     setMaxPrice(1200);
     setSelectedType(null);
     setSelectedBrand(null);
-    setSelectedLoad([]);
-    setSelectedSpeed([]);
+    setSelectedLoad?.([]);
+    setSelectedSpeed?.([]);
   };
 
   return (
-    <div className="w-full max-w-[240px] md:w-72  p-4 rounded-lg">
-      <h2 className="mb-4 text-2xl font-bold">Filters</h2>
+    <div className="w-full p-4 bg-white rounded-lg shadow-sm md:sticky md:top-24">
+      <h2 className="mb-4 text-xl font-bold sm:text-2xl">Filters</h2>
 
       {/* ===== TYPE FILTER ===== */}
       <div className="py-3 border-b">
@@ -129,14 +129,14 @@ const FilterSidebar = ({
               <label key={item.value} className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  checked={selectedLoad.includes(item.value)}
+                  checked={(selectedLoad || []).includes(item.value)}
                   onChange={() => {
-                    if (selectedLoad.includes(item.value)) {
+                    if ((selectedLoad || []).includes(item.value)) {
                       setSelectedLoad(
                         selectedLoad.filter((v) => v !== item.value)
                       );
                     } else {
-                      setSelectedLoad([...selectedLoad, item.value]);
+                      setSelectedLoad([...(selectedLoad || []), item.value]);
                     }
                   }}
                 />
@@ -163,14 +163,14 @@ const FilterSidebar = ({
               <label key={item.value} className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  checked={selectedSpeed.includes(item.value)}
+                  checked={(selectedSpeed || []).includes(item.value)}
                   onChange={() => {
-                    if (selectedSpeed.includes(item.value)) {
+                    if ((selectedSpeed || []).includes(item.value)) {
                       setSelectedSpeed(
                         selectedSpeed.filter((v) => v !== item.value)
                       );
                     } else {
-                      setSelectedSpeed([...selectedSpeed, item.value]);
+                      setSelectedSpeed([...(selectedSpeed || []), item.value]);
                     }
                   }}
                 />
@@ -223,7 +223,7 @@ const FilterSidebar = ({
       {/* ===== RESET BUTTON ===== */}
       <button
         onClick={handleReset}
-        className="w-[60%] py-2 mt-5 text-white transition bg-blue-900 rounded-full hover:bg-blue-800"
+        className="w-full px-4 py-2 mt-5 text-white transition bg-blue-900 rounded-full sm:w-auto hover:bg-blue-800"
       >
         Reset Filters
       </button>

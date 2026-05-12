@@ -21,7 +21,7 @@ const WhatsAppChatbot = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed z-50 flex items-center justify-center w-16 h-16 text-white transition-all bg-green-600 rounded-full shadow-lg bottom-6 right-6 hover:bg-green-700"
+          className="fixed z-50 flex items-center justify-center w-14 h-14 text-white transition-all bg-green-600 rounded-full shadow-lg sm:w-16 sm:h-16 bottom-4 right-4 sm:bottom-6 sm:right-6 hover:bg-green-700"
         >
           <FaWhatsapp size={28} />
         </button>
@@ -29,7 +29,7 @@ const WhatsAppChatbot = () => {
 
       {/* Chat Popup */}
       {isOpen && (
-        <div className="fixed z-50 flex flex-col overflow-hidden bg-white shadow-xl bottom-6 right-6 w-80 rounded-2xl">
+        <div className="fixed z-50 flex flex-col overflow-hidden bg-white shadow-xl bottom-4 right-4 left-4 sm:left-auto sm:bottom-6 sm:right-6 sm:w-80 rounded-2xl">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-green-600">
             <h3 className="font-semibold text-white">Chat with us</h3>
